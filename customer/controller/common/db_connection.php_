@@ -1,0 +1,27 @@
+<?php
+class ControllerCommonDbConnection extends Controller {
+	public function index() {
+        $DBUSER = 'inslocuser';
+        $DBPASSWD = 'n@rayan!23';
+        $DATABASE = 'inslocdb';
+        $HOST = '64.64.3.10';
+
+        echo 'Time stamp before connecting to DB: '.date("H:i:s").'<br><br>';
+
+        $db_conn = new DB('mysqli', $HOST, $DBUSER, $DBPASSWD, $DATABASE);
+
+        echo 'Time stamp after connecting to DB: '.date("H:i:s").'<br><br>';
+
+        $stores = $db_conn->query("SELECT * FROM stores")->rows;
+
+        echo 'Time stamp after select query in Global DB to get list of all stores: '.date("H:i:s").'<br><br>';
+
+        echo "<pre>";
+        print_r($stores);
+
+        echo "<br>";
+        echo 'Time stamp after list of all stores: '.date("H:i:s").'<br><br>';
+		
+	}
+
+}

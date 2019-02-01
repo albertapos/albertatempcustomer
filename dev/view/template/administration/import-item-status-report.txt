@@ -1,0 +1,523 @@
+Item: 012300000079 already exist
+Item: 018200000164 already exist
+Item: 018200000638 already exist
+Item: 018200001062 already exist
+Item: 018200001260 already exist
+Item: 018200004049 already exist
+Item: 018200005008 already exist
+Item: 018200005015 already exist
+Item: 026100005738 inserted
+Item: 026100005752 inserted
+Item: 028200003577 inserted
+Item: 028200003614 inserted
+Item: 028200003638 inserted
+Item: 028200003843 inserted
+Item: 028200004017 inserted
+Item: 028200004659 inserted
+Item: 028200004710 inserted
+Item: 028200004772 inserted
+Item: 028200004789 inserted
+Item: 028200007841 inserted
+Item: 028200007919 inserted
+Item: 034100003548 inserted
+Item: 049000006346 inserted
+Item: 049000006582 inserted
+Item: 078000003574 inserted
+Item: 078000003611 inserted
+Item: 090600000166 already exist
+Item: 090600000173 already exist
+Item: 912500341 inserted
+Item: 912500404 inserted
+Item: 946808164 inserted
+Item: 12000504040 inserted
+Item: 14974521259 inserted
+Item: 18200007686 inserted
+Item: 18200007711 inserted
+Item: 18200008845 inserted
+Item: 18200008914 inserted
+Item: 18200009894 inserted
+Item: 18200059902 inserted
+Item: 18200089812 inserted
+Item: 18200089890 inserted
+Item: 18200109871 inserted
+Item: 18200110300 inserted
+Item: 18200110479 inserted
+Item: 18200111688 inserted
+Item: 18200113498 inserted
+Item: 18200129825 inserted
+Item: 18200129988 inserted
+Item: 18200149904 inserted
+Item: 18200150308 inserted
+Item: 18200159810 inserted
+Item: 18200159832 inserted
+Item: 18200159973 inserted
+Item: 18200189924 inserted
+Item: 18200199915 inserted
+Item: 18200200039 inserted
+Item: 18200200045 inserted
+Item: 18200200051 inserted
+Item: 18200200114 inserted
+Item: 18200209820 inserted
+Item: 18200209836 inserted
+Item: 18200209983 inserted
+Item: 18200219792 inserted
+Item: 18200219974 inserted
+Item: 18200229921 inserted
+Item: 18200239978 inserted
+Item: 18200270301 inserted
+Item: 18200281379 inserted
+Item: 18200281404 inserted
+Item: 18200283032 inserted
+Item: 18200370300 inserted
+Item: 18200530300 inserted
+Item: 18200530479 inserted
+Item: 18200531575 inserted
+Item: 18200531688 inserted
+Item: 18200533498 inserted
+Item: 18200610305 inserted
+Item: 18200860314 inserted
+Item: 18200873374 inserted
+Item: 18200961992 inserted
+Item: 18200963702 inserted
+Item: 18200965506 inserted
+Item: 22100112194 inserted
+Item: 22198004325 inserted
+Item: 26100805751 inserted
+Item: 26100806249 inserted
+Item: 28200135704 inserted
+Item: 28200138400 inserted
+Item: 28200146506 inserted
+Item: 28200178408 inserted
+Item: 30613000019 inserted
+Item: 30613000069 inserted
+Item: 30613000718 inserted
+Item: 34100003409 inserted
+Item: 34100013412 inserted
+Item: 34100015090 inserted
+Item: 34100016425 inserted
+Item: 34100033416 inserted
+Item: 34100073414 inserted
+Item: 34100087229 inserted
+Item: 34100087326 inserted
+Item: 34100152432 inserted
+Item: 34100153419 inserted
+Item: 34100172436 inserted
+Item: 34100173413 inserted
+Item: 34100255745 inserted
+Item: 34100313419 inserted
+Item: 34100516088 inserted
+Item: 34100516191 inserted
+Item: 34100570224 inserted
+Item: 34100572432 inserted
+Item: 34100573061 inserted
+Item: 34100573237 inserted
+Item: 34100573419 inserted
+Item: 34100573914 inserted
+Item: 34100575053 inserted
+Item: 34100575097 inserted
+Item: 34100576369 inserted
+Item: 34100584744 inserted
+Item: 34100588740 inserted
+Item: 34100783505 inserted
+Item: 34100894403 inserted
+Item: 38766301220 inserted
+Item: 41827007241 inserted
+Item: 49000028908 inserted
+Item: 49000028914 inserted
+Item: 49000028920 inserted
+Item: 49000044229 inserted
+Item: 49000418349 inserted
+Item: 62067049096 inserted
+Item: 62067049466 inserted
+Item: 62067051091 inserted
+Item: 62067051461 inserted
+Item: 68213024183 inserted
+Item: 68213034180 inserted
+Item: 68213034196 inserted
+Item: 70310000128 inserted
+Item: 70310014024 inserted
+Item: 70310700256 inserted
+Item: 70897013350 inserted
+Item: 71439000244 inserted
+Item: 71439340302 inserted
+Item: 71439400165 inserted
+Item: 71439700247 inserted
+Item: 71990000488 inserted
+Item: 71990095113 inserted
+Item: 71990095163 inserted
+Item: 71990095367 inserted
+Item: 71990095549 inserted
+Item: 71990096877 inserted
+Item: 71990100330 inserted
+Item: 71990170367 inserted
+Item: 71990300093 inserted
+Item: 71990300106 inserted
+Item: 71990300300 inserted
+Item: 71990300695 inserted
+Item: 71990300792 inserted
+Item: 71990300805 inserted
+Item: 71990300902 inserted
+Item: 71990301042 inserted
+Item: 71990301058 inserted
+Item: 71990316000 inserted
+Item: 71990386203 inserted
+Item: 71990480195 inserted
+Item: 71990764003 inserted
+Item: 71990770060 inserted
+Item: 71990900291 inserted
+Item: 72311132121 inserted
+Item: 72311230122 inserted
+Item: 72311330773 inserted
+Item: 72311331409 inserted
+Item: 72311930216 inserted
+Item: 72480024160 inserted
+Item: 72546036118 inserted
+Item: 72783010006 inserted
+Item: 72783050004 inserted
+Item: 72890000270 inserted
+Item: 72890000311 inserted
+Item: 72890000333 inserted
+Item: 72890000430 inserted
+Item: 72890001536 inserted
+Item: 72890001611 inserted
+Item: 72890001746 inserted
+Item: 72890001893 inserted
+Item: 72890001940 inserted
+Item: 72890100166 inserted
+Item: 72890100241 inserted
+Item: 80020242218 inserted
+Item: 80157114708 inserted
+Item: 80432103471 inserted
+Item: 80432802895 inserted
+Item: 80660953196 inserted
+Item: 80660954098 inserted
+Item: 80660956052 inserted
+Item: 80660956080 inserted
+Item: 80660956159 inserted
+Item: 80660956193 inserted
+Item: 80660956212 inserted
+Item: 80660956228 inserted
+Item: 80660956256 inserted
+Item: 80660956284 inserted
+Item: 80660956397 inserted
+Item: 80660956438 inserted
+Item: 80660956751 inserted
+Item: 80660956955 inserted
+Item: 80660956999 inserted
+Item: 80660957108 inserted
+Item: 80660957584 inserted
+Item: 80660957885 inserted
+Item: 80660958806 inserted
+Item: 80660959394 inserted
+Item: 82000729080 inserted
+Item: 82000778246 inserted
+Item: 82488123000 inserted
+Item: 82488123561 inserted
+Item: 82488123771 inserted
+Item: 82488124203 inserted
+Item: 82488127501 inserted
+Item: 82488128403 inserted
+Item: 82488129305 inserted
+Item: 83741111260 inserted
+Item: 83741503104 inserted
+Item: 83741503148 inserted
+Item: 83783160006 inserted
+Item: 83783375125 inserted
+Item: 83783375460 inserted
+Item: 83820103019 inserted
+Item: 83820123609 inserted
+Item: 83820123659 inserted
+Item: 83820181170 inserted
+Item: 83820181556 inserted
+Item: 83820181948 inserted
+Item: 83820199038 inserted
+Item: 83820223551 inserted
+Item: 83820234228 inserted
+Item: 85053420013 inserted
+Item: 85053520385 inserted
+Item: 87600100414 inserted
+Item: 87692000175 inserted
+Item: 87692000335 inserted
+Item: 87692001055 inserted
+Item: 87692001293 inserted
+Item: 87692003003 inserted
+Item: 87692003382 inserted
+Item: 87692004450 inserted
+Item: 87692004814 inserted
+Item: 87692011030 inserted
+Item: 87692100146 inserted
+Item: 87692111039 inserted
+Item: 87692271046 inserted
+Item: 87692291034 inserted
+Item: 87692751031 inserted
+Item: 87692831036 inserted
+Item: 87692838352 inserted
+Item: 87692871040 inserted
+Item: 87975083508 inserted
+Item: 88345100548 inserted
+Item: 88345101525 inserted
+Item: 88345101597 inserted
+Item: 88345101688 inserted
+Item: 88345101832 inserted
+Item: 88394000133 inserted
+Item: 88394000296 inserted
+Item: 89826500020 inserted
+Item: 89826900333 inserted
+Item: 89924182946 inserted
+Item: 89924200004 inserted
+Item: 89924215056 inserted
+Item: 89924219886 inserted
+Item: 89924219892 inserted
+Item: 89924241421 inserted
+Item: 89924266903 inserted
+Item: 89924288911 inserted
+Item: 89924293866 inserted
+Item: 89924319857 inserted
+Item: 89924410037 inserted
+Item: 89924880076 inserted
+Item: 92000004029 inserted
+Item: 92000020641 inserted
+Item: 94254000147 inserted
+Item: 95301130642 inserted
+Item: 157597692191 inserted
+Item: 157597879707 inserted
+Item: 157597967541 inserted
+Item: 181954000053 already exist
+Item: 602755003116 already exist
+Item: 602755006032 already exist
+Item: 602755006100 already exist
+Item: 603675101845 already exist
+Item: 606905008303 already exist
+Item: 606905009300 already exist
+Item: 611250400054 already exist
+Item: 611269108026 already exist
+Item: 630279265147 already exist
+Item: 630279393246 already exist
+Item: 630279465141 already exist
+Item: 630279467145 already exist
+Item: 630279474242 already exist
+Item: 630279492246 already exist
+Item: 630279527757 already exist
+Item: 630279752241 already exist
+Item: 630279774144 already exist
+Item: 630279776247 already exist
+Item: 630279827123 already exist
+Item: 630279847145 already exist
+Item: 631234100046 already exist
+Item: 631234400047 already exist
+Item: 631234441132 already exist
+Item: 631234600034 already exist
+Item: 635985025993 already exist
+Item: 635985120018 already exist
+Item: 635985129998 already exist
+Item: 635985200291 already exist
+Item: 635985246114 already exist
+Item: 635985248224 already exist
+Item: 635985500056 already exist
+Item: 635985542650 already exist
+Item: 636251741302 already exist
+Item: 636251741364 already exist
+Item: 636251770159 already exist
+Item: 636251870408 already exist
+Item: 636251889011 already exist
+Item: 637704000151 already exist
+Item: 637704000205 already exist
+Item: 637704001011 already exist
+Item: 637704001042 already exist
+Item: 637704006252 already exist
+Item: 637704009208 already exist
+Item: 637704062364 already exist
+Item: 637704072134 already exist
+Item: 637704074015 already exist
+Item: 638489000121 already exist
+Item: 638489000145 already exist
+Item: 638489000244 already exist
+Item: 638489000299 already exist
+Item: 638489000350 already exist
+Item: 638489000596 already exist
+Item: 638489000619 already exist
+Item: 638489001593 already exist
+Item: 638489001708 already exist
+Item: 638489001777 already exist
+Item: 638489001845 already exist
+Item: 638489001890 already exist
+Item: 642860100010 already exist
+Item: 642860400158 already exist
+Item: 642860400165 already exist
+Item: 642860600053 already exist
+Item: 642860600237 already exist
+Item: 642860600244 already exist
+Item: 642860800057 already exist
+Item: 642860900245 already exist
+Item: 642860900252 already exist
+Item: 660588000122 already exist
+Item: 660588020120 already exist
+Item: 660588050127 already exist
+Item: 660588060126 already exist
+Item: 660588210248 already exist
+Item: 660588990126 already exist
+Item: 662425072965 already exist
+Item: 662425078615 already exist
+Item: 662425083930 already exist
+Item: 672438000244 already exist
+Item: 672438000251 already exist
+Item: 672438000473 already exist
+Item: 672438000688 already exist
+Item: 672438000695 already exist
+Item: 672438001012 already exist
+Item: 672438001272 already exist
+Item: 672438001357 already exist
+Item: 672882100897 already exist
+Item: 675747001148 already exist
+Item: 675747004040 already exist
+Item: 675747004095 already exist
+Item: 687151512998 already exist
+Item: 687151524014 already exist
+Item: 687151524021 already exist
+Item: 687151524045 already exist
+Item: 687151524076 already exist
+Item: 687151524137 already exist
+Item: 702770081042 already exist
+Item: 702770082049 already exist
+Item: 702770083046 already exist
+Item: 704361041114 already exist
+Item: 704361400126 already exist
+Item: 704361400249 already exist
+Item: 709326018040 already exist
+Item: 720604511008 already exist
+Item: 722130555099 already exist
+Item: 723830000032 already exist
+Item: 723830000094 already exist
+Item: 723830000346 already exist
+Item: 723830100015 already exist
+Item: 723830100091 already exist
+Item: 723830100114 already exist
+Item: 723830100121 already exist
+Item: 723830100350 already exist
+Item: 723830300477 already exist
+Item: 723830800144 already exist
+Item: 723830800182 already exist
+Item: 723830800236 already exist
+Item: 723830800335 already exist
+Item: 723830800434 already exist
+Item: 723830801127 already exist
+Item: 735201706313 already exist
+Item: 736040524182 already exist
+Item: 736920111327 already exist
+Item: 736920111389 already exist
+Item: 736920111402 already exist
+Item: 736920111808 already exist
+Item: 736920111839 already exist
+Item: 736920112072 already exist
+Item: 736920112522 already exist
+Item: 736920113093 already exist
+Item: 736920113338 already exist
+Item: 736920114014 already exist
+Item: 736920114137 already exist
+Item: 736920115042 already exist
+Item: 736920115080 already exist
+Item: 740522100801 already exist
+Item: 740522100832 already exist
+Item: 740522110831 already exist
+Item: 740522110862 already exist
+Item: 740522114280 already exist
+Item: 740522116789 already exist
+Item: 746598333129 already exist
+Item: 748252026101 already exist
+Item: 754527000240 already exist
+Item: 754527000684 already exist
+Item: 754527000837 already exist
+Item: 754527000844 already exist
+Item: 754527001612 already exist
+Item: 754527002015 already exist
+Item: 754527003623 already exist
+Item: 754527004446 already exist
+Item: 754527004705 already exist
+Item: 754527005399 already exist
+Item: 754527005672 already exist
+Item: 754527006051 already exist
+Item: 754527006150 already exist
+Item: 754527006907 already exist
+Item: 754527007416 already exist
+Item: 758576650746 already exist
+Item: 762274075312 already exist
+Item: 762274202923 already exist
+Item: 763176120063 already exist
+Item: 763176170068 already exist
+Item: 763176280248 already exist
+Item: 776029700817 already exist
+Item: 786150000014 already exist
+Item: 786150000021 already exist
+Item: 786150000038 already exist
+Item: 786150000151 already exist
+Item: 786150000359 already exist
+Item: 786150000366 already exist
+Item: 786150000519 already exist
+Item: 786150000526 already exist
+Item: 786243600053 already exist
+Item: 791154075302 already exist
+Item: 791154075319 already exist
+Item: 791154075326 already exist
+Item: 793573227867 already exist
+Item: 795563120011 already exist
+Item: 796363004082 already exist
+Item: 796363004167 already exist
+Item: 796363004686 already exist
+Item: 796363006857 already exist
+Item: 796363011004 already exist
+Item: 798304078787 already exist
+Item: 798304142723 already exist
+Item: 798373121230 already exist
+Item: 798373121254 already exist
+Item: 798373126020 already exist
+Item: 798373300512 already exist
+Item: 815351010079 already exist
+Item: 815351010383 already exist
+Item: 815833002073 already exist
+Item: 816014020077 already exist
+Item: 817099001104 already exist
+Item: 817606010148 already exist
+Item: 817606010353 already exist
+Item: 830999007083 already exist
+Item: 850438002622 already exist
+Item: 851538002086 already exist
+Item: 851538002147 already exist
+Item: 851621000234 already exist
+Item: 852089007001 already exist
+Item: 852089007018 already exist
+Item: 852089007025 already exist
+Item: 852089007032 already exist
+Item: 852089007056 already exist
+Item: 852089007100 already exist
+Item: 852797006426 already exist
+Item: 852941005107 already exist
+Item: 853575001466 already exist
+Item: 853575001541 already exist
+Item: 853575001565 already exist
+Item: 853575001572 already exist
+Item: 853575001596 already exist
+Item: 853759000049 already exist
+Item: 853759000131 already exist
+Item: 853759000315 already exist
+Item: 853759000544 already exist
+Item: 853897002271 already exist
+Item: 854056004464 already exist
+Item: 855921002103 already exist
+Item: 856655003282 already exist
+Item: 858187003013 already exist
+Item: 858187003051 already exist
+Item: 858187003228 already exist
+Item: 858190006001 already exist
+Item: 858190006018 already exist
+Item: 858190006025 already exist
+Item: 858604005064 already exist
+Item: 858604005149 already exist
+Item: 858604005262 already exist
+Item: 859093002466 already exist
+Item: 859170005199 already exist
+Item: 859515003095 already exist
+Item: 859612001024 already exist
+Item: 859612001055 already exist
+Item: 897853002936 already exist
+Item: 899539000793 already exist
+Item: 541218600199 already exist

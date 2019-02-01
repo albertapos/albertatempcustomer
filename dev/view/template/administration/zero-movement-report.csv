@@ -1,0 +1,29 @@
+Store Name: NY STORE
+Store Address: 123 W Street
+Store Phone: 6098881234
+
+Category,Supplier,Item,QOH,Cost,Price,Shelf,Shelving,Aisle
+General,,,,,
+General,General Vendor,HAIR CLUB HAIR PIN,0,0.00,1.49,,,
+General,General Vendor,GUNS,0,7.95,9.95,,,
+General,General Vendor,Standard Test Item 1,0,0.00,25.00,,,
+General,General Vendor,Test Koke,-4,0.00,6.00,,,
+General,General Vendor,Test Item,1200,10.00,12.00,,,
+General,General Vendor,111111,1,10.00,11.11,,,
+General,General Vendor,Meat,100,10.00,11.11,,,
+General,General Vendor,Plastic Table,29,3141.38,3500.00,,,
+General,General Vendor,testtaxitem,11,10.09,12.00,,,
+General,General Vendor,Micromax Television,18,11116.67,15000.00,,,
+General,General Vendor,Diary,5,150.00,200.00,,,
+General,General Vendor,Notebook,16,137.50,200.00,,,
+General,General Vendor,Copper Jug,0,180.00,200.00,,,
+General,General Vendor,Ceiling Fan,5,120.00,150.00,,,
+General,General Vendor,CFL Tubelight,33,14.12,20.00,,,
+testcategory,,,,,
+testcategory,General Vendor,Bear,1202,11.66,12.50,,,
+testcategory,test vendor,Small Coffee 12oz,0,0.35,20.00,,,
+testcategory,test vendor,Medium Coffee 16oz,0,461.70,20.00,,,
+testcategory,test vendor,test,-234,1.00,20.00,,,
+CIGARETTES,,,,,
+CIGARETTES,General Vendor,Test Item 21,50,10.00,12.00,,,
+,,Total,2432,$15392.42,$19443.16,,,

@@ -1,0 +1,24 @@
+Store Name: NY STORE
+Store Address: 123 W Street
+Store Phone: 6098881234
+Category,Item,QOH,Cost Value,Total Cost Value,Retail Value,Total Retail Value
+CIGARETTES,,,,
+CIGARETTES,Test Item 21,50,10.00,500.00,12.00,600.00
+,Total,50,,$500,,$600
+General,,,,
+General,Test Item,1200,10.00,12000.00,12.00,14400.00
+General,Ceiling Fan,5,120.00,600.00,150.00,750.00
+General,Micromax Television,17,11182.35,190099.95,15000.00,255000.00
+General,Meat,100,10.00,1000.00,11.11,1111.00
+General,CFL Tubelight,28,13.43,376.04,20.00,560.00
+General,Diary,5,150.00,750.00,200.00,1000.00
+General,Plastic Table,29,3141.38,91100.02,3500.00,101500.00
+General,123456,8,10.00,80.00,11.11,88.88
+General,Notebook,15,140.00,2100.00,200.00,3000.00
+General,testtaxitem,10,10.00,100.00,12.00,120.00
+General,Superb Chair ! @ Irresistable Price*,462,111.43,51480.66,100.00,46200.00
+,Total,1879,,$349686.67,,$423729.88
+testcategory,,,,
+testcategory,Bear,1202,11.66,14015.32,1.04,1250.08
+,Total,1202,,$14015.32,,$1250.08
+,Grand Total,3131,,$83276.02,,$425581.96

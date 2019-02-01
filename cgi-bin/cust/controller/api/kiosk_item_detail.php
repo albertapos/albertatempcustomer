@@ -1,0 +1,28 @@
+<?php
+class ControllerApiKioskItemDetail extends Controller {
+	private $error = array();
+
+	public function index() {
+
+		$this->load->model('api/kiosk_item_detail');
+
+		if (($this->session->data['token'] == $this->request->get['token']) && ($this->session->data['sid'] == $this->request->get['sid']) && ($this->request->server['REQUEST_METHOD'] == 'POST')) {
+
+        $temp_arr = json_decode(file_get_contents('php://input'), true);
+                
+        $data = $this->model_api_kiosk_item_detail->getKioskItemDetail($temp_arr);
+
+        http_response_code(200);
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($data));
+
+    }else{
+        $data['error'] = 'Something went wrong missing token or sid';
+        http_response_code(401);
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($data));
+    }
+	}
+
+
+}

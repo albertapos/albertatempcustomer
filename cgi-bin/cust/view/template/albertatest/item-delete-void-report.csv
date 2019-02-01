@@ -1,0 +1,18 @@
+User,Item Barcode,Item Name,Qty,Price,Total Price,Date Time,Action
+Admin ,2,Taxable Item,1,0.25,0.25,05-24-2017 21:00:13,Void
+Admin ,newweight,weightscale,1,50.00,50.00,06-21-2017 10:36:00,Void
+Admin ,WORKING,NOTWORKING,1,20.00,18.00,06-23-2017 11:24:05,Void
+Admin ,newweight,weightscale,1,50.00,45.00,06-23-2017 11:24:05,Void
+Admin ,newweight,weightscale,1,50.00,45.00,06-23-2017 11:24:05,Void
+Admin ,AGEVER,agever,1,5.25,5.25,07-03-2017 10:49:20,Void
+Admin ,AGEVER,agever,1,5.25,5.25,07-03-2017 10:49:20,Void
+Admin ,AGEVER,agever,1,5.25,5.25,07-03-2017 10:49:20,Void
+Admin ,AGEVER,agever,1,5.25,5.25,07-03-2017 10:49:20,Void
+Manager User 12,WORKING,NOTWORKING,1,7.50,7.50,11-27-2017 13:39:30,Delete
+Manager User 12,WORKING,NOTWORKING,1,7.50,7.50,11-27-2017 13:39:33,Delete
+Manager User 12,LOT,LOTNEW
+    Pack:1,1,30.00,30.00,11-27-2017 13:39:41,Delete
+Manager User 12,3,Non Taxable Item,1,2.00,2.00,11-27-2017 13:36:10,Delete
+Cashier User,WORKING,NOTWORKING,1,20.00,20.00,11-27-2017 13:36:17,Delete
+Cashier User,NEWSTD,NEWSTANDARD,98,18.43,1806.14,11-27-2017 13:39:37,Delete
+Pritesh Pate,AGEVER,agever,1,5.25,5.25,11-27-2017 13:40:34,Delete

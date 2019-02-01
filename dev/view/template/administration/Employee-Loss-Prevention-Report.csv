@@ -1,0 +1,37 @@
+Store Name: NYSTORE
+Store Address: 123 W Street
+Store Phone: 6098881234
+Username,Transaction Type,Transaction Id,Transaction Time,Product Name,Amount
+Admin ,Delete,101,08-26-2018,Bottle Deposit,2.00
+Admin ,Delete,100,08-26-2018,Bottle Deposit,0.10
+Admin ,Void,1808261014,08-26-2018 16:14:48,Taxable Item,0.12
+Admin ,Void,1808261014,08-26-2018 16:14:48,Bottle Deposit,-2.00
+Admin ,Void,1808261014,08-26-2018 16:14:48,Bottle Deposit,-0.20
+Admin ,Return,1808261016,08-26-2018 16:16:56,Taxable Item,-0.20
+Admin ,Return,1808261016,08-26-2018 16:16:56,Non Taxable Item,-0.30
+Admin ,Return,1808261016,08-26-2018 16:16:56,Bottle Deposit,-0.10
+Admin ,No Sale,,08-26-2018 16:17:22,,0.00
+Admin ,Void,1808261018,08-26-2018 16:29:43,Bottle Deposit,1.00
+Admin ,Void,1808261018,08-26-2018 16:29:43,Taxable Item,2.00
+Admin ,Void,1808261018,08-26-2018 16:29:43,Non Taxable Item,3.00
+Admin ,Void,1808261015,08-26-2018 17:57:10,Taxable Item,0.20
+Admin ,Void,1808261015,08-26-2018 17:57:10,Bottle Deposit,0.10
+Admin ,Void,1808261015,08-26-2018 17:57:10,Non Taxable Item,0.30
+Admin ,Void,1808261015,08-26-2018 17:57:10,Bottle Deposit,0.10
+Admin ,Return,18082610123,08-26-2018 19:13:50,Taxable Item,-0.20
+Admin ,Void,18082610134,08-26-2018 19:54:48,Bottle Deposit,0.10
+Admin ,Delete,102,08-27-2018,Bottle Deposit,0.10
+Admin ,Return,1808271013,08-27-2018 16:43:21,Taxable Item,-0.20
+Admin ,Return,1808271013,08-27-2018 16:43:21,Non Taxable Item,-0.30
+Admin ,Return,1808271013,08-27-2018 16:43:21,Bottle Deposit,-0.10
+Admin ,No Sale,,08-27-2018 16:45:05,,0.00
+Admin ,No Sale,,08-27-2018 23:29:09,,0.00
+Admin ,Void,18082810119,08-28-2018 18:35:05,PEPSI 20OZ,1.79
+Admin ,Void,18082810119,08-28-2018 18:35:05,PEPSI 20OZ,1.79
+Admin ,Void,18082810120,08-28-2018 19:43:26,ISLA DEL SOL ROBUSTO ,5.99
+Admin ,Void,1808291013,08-29-2018 01:03:20,Bottle Deposit,0.10
+Admin ,Void,1808291016,08-29-2018 03:10:51,Bottle Deposit,0.10
+Admin ,Void,18082910111,08-29-2018 12:06:25,Bottle Deposit,0.10
+Admin ,Void,1808301011,08-30-2018 19:02:50,Bottle Deposit,0.10
+Admin ,Void,1808311011,08-31-2018 16:03:17,Bottle Deposit,0.10
+Admin ,Void,1809011011,09-01-2018 11:28:31,Bottle Deposit,0.07
