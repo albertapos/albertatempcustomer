@@ -541,35 +541,42 @@ class ControllerKioskItems extends Controller {
 		}
 		
 		if(!isset($this->request->get['iitemid'])){
-			
-			if(isset($this->request->files['image']['tmp_name']))
-			{
-				$image='';
-				if(is_file($this->request->files['image']['tmp_name']) && $this->request->files['image']['tmp_name']!='' && $this->request->files['image']['size'] > 0)
-				{
-					$fp = fopen($this->request->files['image']['tmp_name'], 'rb');
-					$image = file_get_contents($this->request->files['image']['tmp_name']);
-				}else{
-					if(isset($this->request->post['iitemid']) && $this->request->post['iitemid']!="")
-					{
-						$image = base64_decode($this->request->post['image']);
-					}
-				}
-				if($image != '')
-				{
-					$im = imagecreatefromstring($image);
-					$width = imagesx($im);
-					$height = imagesy($im);
-				}
-				else
-				{
-					$height = 0;
-					$width = 0;	
-				}
-				if($height >= 600 || $width >= 600 || $this->request->files['image']['type']!="image/jpeg"){
-					$this->error['image']= "Image size grater then its size or Invalid file type!";
-				}
+		    
+		    // proceed even if the image is not uploaded
+			if($this->request->files['image']['error'] != 4){
+			    
+			    if(isset($this->request->files['image']['tmp_name']))
+    			{
+    				$image='';
+    				if(is_file($this->request->files['image']['tmp_name']) && $this->request->files['image']['tmp_name']!='' && $this->request->files['image']['size'] > 0)
+    				{
+    					$fp = fopen($this->request->files['image']['tmp_name'], 'rb');
+    					$image = file_get_contents($this->request->files['image']['tmp_name']);
+    				}else{
+    					if(isset($this->request->post['iitemid']) && $this->request->post['iitemid']!="")
+    					{
+    						$image = base64_decode($this->request->post['image']);
+    					}
+    				}
+    				if($image != '')
+    				{
+    					$im = imagecreatefromstring($image);
+    					$width = imagesx($im);
+    					$height = imagesy($im);
+    				}
+    				else
+    				{
+    					$height = 0;
+    					$width = 0;	
+    				}
+    				if($height >= 600 || $width >= 600 || $this->request->files['image']['type']!="image/jpeg"){
+    					$this->error['image']= "Image size grater then its size or Invalid file type!";
+    				}
+    			}
+			    
 			}
+			
+			
 		}
 		/*if ((utf8_strlen($this->request->post['vitemname']) < 2) || (utf8_strlen($this->request->post['vitemname']) > 51)) {
 			$this->error['sku']= "Please Enter SKU";

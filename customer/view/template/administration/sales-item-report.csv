@@ -1,6 +1,0 @@
-Username,Transaction Type,Product Name,Amount,Date Time
-Admin ,Void,Bottle Deposit,1.00,08-25-2018 04:33:08
-Admin ,Void,Taxable Item,0.11,08-25-2018 04:33:08
-Admin ,Void,Non Taxable Item,11.00,08-25-2018 04:33:08
-Admin  User,Delete,Taxable Item,10.00,08-25-2018 11:25:25
-Admin  User,Delete,Bottle Deposit,10.00,08-25-2018 11:32:44

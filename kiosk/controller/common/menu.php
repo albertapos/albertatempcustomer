@@ -2,7 +2,9 @@
 class ControllerCommonMenu extends Controller {
 	public function index() {
 		$this->load->language('common/menu');
-
+        
+        $data['change_store_url'] = $this->url->link('common/header/changestore', 'token=' . $this->session->data['token'], true);
+        
 		$data['text_dashboard'] = $this->language->get('text_dashboard');
 		$data['text_system'] = $this->language->get('text_system');
 		
@@ -23,7 +25,7 @@ class ControllerCommonMenu extends Controller {
 		$data['text_users'] = $this->language->get('text_users');
 		
 		
-
+        
 		$data['home'] = $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true);		
 		$data['menus'] = $this->url->link('kiosk/menus', 'token=' . $this->session->data['token'], true);
 		$data['menu_item'] = $this->url->link('kiosk/menu_item', 'token=' . $this->session->data['token'], true);

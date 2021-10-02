@@ -244,3 +244,20 @@ INSERT INTO `mst_coupon` (`Id`,`CouponCode`,`CouponAmount`) VALUES (58,49,0.49);
 INSERT INTO `mst_coupon` (`Id`,`CouponCode`,`CouponAmount`) VALUES (59,50,0.50);
 
 INSERT INTO `kiosk_deli_order` (`DeliOrderId`) VALUES (0);
+
+
+-- ================================= For ALBERTAPOS 3.0 ========================
+
+delete from mst_synctable where TableName in 
+('trn_prom_customers','mst_prom_type','trn_prom_details','trn_promotions','mst_manufacturer','mst_subcategory')
+
+INSERT INTO `mst_synctable` (`Id`, `TableName`, `Sequence`, `TranTypeId`, `SqlOperation`) VALUES ('3001', 'trn_prom_customers', '11', '3', '0');
+INSERT INTO `mst_synctable` (`Id`, `TableName`, `Sequence`, `TranTypeId`, `SqlOperation`) VALUES ('3002', 'mst_prom_type', '11', '3', '0');
+INSERT INTO `mst_synctable` (`Id`, `TableName`, `Sequence`, `TranTypeId`, `SqlOperation`) VALUES ('3003', 'trn_prom_details', '11', '3', '0');
+INSERT INTO `mst_synctable` (`Id`, `TableName`, `Sequence`, `TranTypeId`, `SqlOperation`) VALUES ('3004', 'trn_promotions', '11', '3', '0');
+INSERT INTO `mst_synctable` (`Id`, `TableName`, `Sequence`, `TranTypeId`, `SqlOperation`) VALUES ('3005', 'mst_manufacturer', '11', '3', '0');
+INSERT INTO `mst_synctable` (`Id`, `TableName`, `Sequence`, `TranTypeId`, `SqlOperation`) VALUES ('3006', 'mst_subcategory', '11', '3', '0');
+
+
+
+

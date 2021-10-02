@@ -25,7 +25,7 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'production'),
+    'env' => env('APP_ENV', 'development'),
     'ssl' => env('APP_SSL', 'true'),
 
     /*
@@ -170,6 +170,8 @@ return [
          */
         Collective\Html\HtmlServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        
+        Neoxia\Filesystem\SftpServiceProvider::class,
 
         /*
          * Application Service Providers...

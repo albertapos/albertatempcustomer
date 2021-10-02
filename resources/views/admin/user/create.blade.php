@@ -25,10 +25,11 @@
                            <div class="form-group col-xs-5">
                                 <label class="control-label">Role</label>
                                 <div class="">
-                                   {!! Form::select('roleName',['0' => 'Select Role'] + $role_array,null,['class'=>'form-control','id'=>'role','onChange'=>"showStore(this)"]) !!}<br>   
+                                   <!--{!! Form::select('roleName',['0' => 'Select Role'] + $role_array,null,['class'=>'form-control','id'=>'role','onChange'=>"showStore(this)"]) !!}<br>   -->
+                                   {!! Form::select('roleName', $role_array,null,['class'=>'form-control','id'=>'role','onChange'=>"showStore(this)"]) !!}<br>   
                                 </div>
                             </div>
-                            <div class="form-group col-xs-5" style="display:none" id ='hidden_div'>
+                            <div class="form-group col-xs-5" style="display:block" id ='hidden_div'>
                                 <label class="control-label">Store</label>
                                 <div class="">
                                    {!! Form::select('storeName[]',$store_array,null,['class'=>'form-control','multiple','required']) !!}<br>   
@@ -103,12 +104,12 @@
   
     <script type="text/javascript">
     function showStore(elem){
-        if(elem.value == 2){
-          document.getElementById('hidden_div').style.display = "block";
-        }
-        else{
-            document.getElementById('hidden_div').style.display = "none";
-        }
+        // if(elem.value == 2){
+        //   document.getElementById('hidden_div').style.display = "block";
+        // }
+        // else{
+        //     document.getElementById('hidden_div').style.display = "none";
+        // }
     }
   </script> 
    <script type="text/javascript">

@@ -540,8 +540,10 @@ class ControllerKioskMenus extends Controller {
 		if ((utf8_strlen($this->request->post['Title']) < 2) || (utf8_strlen($this->request->post['Title']) > 32)) {
 			$this->error['Title']= $this->language->get('error_title');
 		}
-
-		$this->validateimagesize();
+		
+		if($this->request->files['image']['error'] != 4){
+		    $this->validateimagesize();
+		}
 		
 		if ($this->error && !isset($this->error['warning'])) {
 			$this->error['warning'] = $this->language->get('error_warning');

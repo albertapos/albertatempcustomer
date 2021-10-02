@@ -19,7 +19,8 @@
                     <span class="store_head_title">National Product List</span>
                 @else
                     <!-- Jignesh's code -->
-                    <span class="store_head_title">{{ Session::get('selected_store_title') }}</span>
+                    <!--{{ Session::get('selected_store_title') }}-->
+                    <span class="store_head_title"></span>
                 @endif
                 
         @endif

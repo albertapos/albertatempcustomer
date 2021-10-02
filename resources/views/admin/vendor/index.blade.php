@@ -55,7 +55,7 @@ $timing .= '-----';
                                 <th>Updated</th>
                                 @if(Auth::check()) 
                                     @foreach (Auth::user()->roles()->get() as $role)
-                                        @if (in_array($role->name, array('Admin','Vendor')))
+                                        @if (in_array($role->name, array('SuperAdmin','Vendor')))
                                            <th>Actions</th>
                                         @endif
                                     @endforeach
@@ -118,7 +118,7 @@ $timing .= '-----';
                                 @endphp
                                 @if(Auth::check()) 
                                 @foreach (Auth::user()->roles()->get() as $role)
-                                    @if (in_array($role->name, array('Admin','Vendor')))
+                                    @if (in_array($role->name, array('SuperAdmin','Vendor')))
                                         <td>
                                             @if(!in_array($store->id, array(100136)))
                                            <a href="/admin/vendors/{{ $store->id }}/edit"
@@ -239,7 +239,7 @@ $('#store_listing').DataTable({
 </script>
 
 <div style="display:none">
-    <form action="https://administration.albertapayments.com/index.php?route=common/login" id="form_store_administration" method="post" enctype="multipart/form-data" target="_blank">
+    <form action="http://administration.albertapayments.com/index.php?route=common/login" id="form_store_administration" method="post" enctype="multipart/form-data" target="_blank">
     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> 
         <input type="text" name="username" id="input_username_administration">
 

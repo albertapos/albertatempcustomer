@@ -713,4 +713,24 @@ class PLCBController extends Controller
             return 'Something Went Wrong!!!';
         }
     }
+    public function plcb_items(){
+        ini_set('default_socket_timeout', 6000);
+	    ini_set("max_execution_time", 600);
+        
+        $file_path = storage_path().'/logs/plcb_status.log';
+        $myfile = fopen($file_path, "a");
+        $data_log= "";
+        $data_log = date("Y-m-d H:i:s").": Started Plcb Item inserting ".PHP_EOL;
+        fwrite($myfile,$data_log);
+        
+        $sql="CALL inslocdb.sp_insert_plcb_item()";
+        
+        $query = \DB::statement($sql);
+        
+        $data_log = date("Y-m-d H:i:s").': Done with inserting plcb '.PHP_EOL;
+        fwrite($myfile,$data_log);
+        fclose($myfile);
+        return "Data Inserted Successfully!!!";
+          
+    }
 }

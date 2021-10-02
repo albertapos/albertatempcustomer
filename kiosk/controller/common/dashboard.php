@@ -2,9 +2,31 @@
 class ControllerCommonDashboard extends Controller {
 	public function index() {
 		$this->load->language('common/dashboard');
-
+        $this->load->model('kiosk/stores');
+        
+        if($this->request->server['REQUEST_METHOD'] == 'POST'){
+			$userid = $this->session->data['user_id'];
+			$storeid = $this->request->post['change_store_id'];
+			$this->user->change_store($storeid);
+			$this->response->redirect($this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true));
+		}
+        
+        $data['user_stores'] = array();
+        if($this->session->data['user_id'])
+        {
+            $getStoresByUser = $this->model_kiosk_stores->getStoresByUser($this->session->data['user_id']);
+            $data['user_stores'] = $getStoresByUser;
+            $this->session->data['user_stores'] = $getStoresByUser;
+            if($this->session->data['SID'] == "" && count($getStoresByUser) > 0)
+            {
+                $this->session->data['SID'] = $getStoresByUser[0]['id'];
+                $storeid = $getStoresByUser[0]['id'];
+			    $this->user->change_store($storeid);
+                $this->response->redirect($this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true));
+            }
+            
+        }
 		$this->document->setTitle($this->language->get('heading_title'));
-
 		$data['heading_title'] = $this->language->get('heading_title');
 
 		$data['text_sale'] = $this->language->get('text_sale');

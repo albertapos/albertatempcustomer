@@ -211,23 +211,30 @@ class Store extends Model
                 
                 //echo "User created successfully.<br/>";
                 // if ($conn->query("GRANT ALL PRIVILEGES ON ".$databasename.".* TO '".$databaseuser."'@'".$db_host."'") === TRUE) {
-                if ($conn->query("GRANT ALL PRIVILEGES ON ".$databasename.".* TO '".$databaseuser."'@'%' IDENTIFIED BY '".$databasepass."'") === TRUE) {
+                if ($conn->query("GRANT ALL PRIVILEGES ON ".$databasename.".* TO '".$databaseuser."'@'%' IDENTIFIED BY '".$databasepass."';") === TRUE) {
+                    
+                    $conn->query("FLUSH PRIVILEGES;");
                     
                     //echo "Granted all permissions successfully.<br/>";
+                    
+                    // dd("mysql -u" . $databaseuser . " -p" . $databasepass . " -h" . $db_host . " -D". $databasename . " < ". storage_path('golden_blank.sql'));
+                    
                     exec("mysql -u" . $databaseuser . " -p" . $databasepass . " -h" . $db_host . " -D". $databasename . " < ". storage_path('golden_blank.sql'));
                     
                     /*exec("mysql -u" . $databaseuser . " -p" . $databasepass . " " . 
                                 $databasename . " < ". storage_path('golden_blank.sql') );*/
                 } else {
-                    echo "Error granting permissions: " . $conn->error."<br/>";
+                    echo "Error granting permissions: " . $conn->error."<br/>";die;
                 }
                 
             } else {
-                echo "Error creating user: " . $conn->error."<br/>";
+                
+                echo "CREATE USER '".$databaseuser."'@'".$db_host."' IDENTIFIED BY '".$databasepass."';"."<br>";
+                echo "Error creating user: " . $conn->error."<br/>"; die;
             }
             
         } else {
-            echo "Error creating database: " . $conn->error."<br/>";
+            echo "Error creating database: " . $conn->error."<br/>";die;
         }        
         
         
@@ -326,6 +333,10 @@ class Store extends Model
 
 
         exec("mysql -u" . $databaseuser . " -p" . $databasepass . " -h" . $db_host . " -D". $databasename . " < ". storage_path('web_DefaultPosData.sql') );
+        
+        $insert_query = "INSERT INTO `u".$new_store_id."`.`mst_version` (`ver_id`, `ver_no`, `update_dt`, `update_type`, `ftp_folder_name`, `create_dt`, `LastUpdate`, `SID`) VALUES ('300', '3.0.0', current_timestamp(), 'Manual', 'update_script_300', '".date('Y-m-d H:i:s', strtotime('now'))."', '".date('Y-m-d H:i:s', strtotime('now'))."', '".$new_store_id."')";
+        
+        DB::connection('mysql')->statement($insert_query);
         
         return true;
     }

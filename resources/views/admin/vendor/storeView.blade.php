@@ -2,7 +2,7 @@
 @section('content')
 <?php $u_role = false; ?>
 @foreach (Auth::user()->roles()->get() as $role)
-    @if(in_array($role->name, array('Admin', 'Sales Admin')))
+    @if(in_array($role->name, array('Admin', 'SuperAdmin', 'Sales Admin')))
         <?php $u_role = true; ?>
     @endif
 @endforeach
@@ -67,7 +67,7 @@
                                     <td>Expiry Date </td>
                                     <td>{{ $store->license_expdate }}</td>
                                 </tr>
-                                @if($user_role == 'Admin')
+                                @if($user_role == 'SuperAdmin')
                                 </tr>
                                     <td>Database Name </td>
                                     <td>{{ $store->db_name }}</td>

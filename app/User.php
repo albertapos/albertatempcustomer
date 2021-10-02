@@ -25,7 +25,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 {
     use Authenticatable, CanResetPassword, HasRoleAndPermission;
     use Notifiable;
-    use HasApiTokens;
+    // use HasApiTokens;
 
 
     protected $table = 'users';
@@ -73,9 +73,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
            'fname' => 'required|min:3|max:255',
             'lname' => 'required|min:3|max:255',
             'phone' => 'required|min:10|numeric',
+            'email' => 'email|max:255|unique:users,email,'.$data['user_id'],
             'password' => 'confirmed',
             
         );
+        
         return Validator::make($data, $rules);
     }
     public static function userFillData()

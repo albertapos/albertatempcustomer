@@ -162,4 +162,48 @@ class DashboardController extends Controller
                     'stores', 'date',
                     'fdate','tdate','sale_item','token'));
     }
+     public function getDashbord_new(Request $request){
+
+        $stores = Store::all();
+        $store_array = array();
+        foreach ($stores as $storesData) {
+           $store_array[$storesData->id] = $storesData->name;
+        }
+        
+        if(!empty(Request::get('sid'))){
+            Auth::user()->changeStore(Request::get('sid'));
+            $sid = Request::get('sid');
+        }else{
+            return 'SID not found!!!';
+        }
+
+        if(!empty(Request::get('token'))){
+            $token = Request::get('token');
+        }else{
+            return 'Token not Found!!!';
+        }
+        
+
+        $topItem = new TRN_SALES;
+        // $date = Request::get('date',date('Y-m-d'));
+        $date = date('Y-m-d');
+        $fdate = date("Y-m-d", (strtotime($date)) - (7*24*60*60));
+        $tdate = date("Y-m-d", (strtotime($date)) - (24*60*60));
+        $sale_item['sales']['today'] = $topItem->getTodaySale_mobile($date, $sid);
+      
+        $sale_item['sales']['yesterday'] = $topItem->getYesterdaySale_mobile($date, $sid);
+        $sale_item['sales']['week'] = $topItem->getWeeklySales_mobile($date, $sid);
+        $sale_item['customer'] = $topItem->getCustomerDashboard_mobile($date, $sid);
+        $sale_item['void'] = $topItem->getVoidDashboard_mobile($date, $sid);        
+
+        $todaySale = $sale_item['sales']['today'];
+        $yesterdaySales = $sale_item['sales']['yesterday'];
+        $weeklySale = $sale_item['sales']['week'];
+        
+        // dd($sale_item);
+
+        return view('admin.apiDashboard',compact('store_array','todaySale','yesterdaySales','weeklySale',
+                    'stores', 'date',
+                    'fdate','tdate','sale_item','token'));
+    }
 }

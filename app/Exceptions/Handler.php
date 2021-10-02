@@ -7,6 +7,9 @@ use Session;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
+use Request;
+use Response;
+
 class Handler extends ExceptionHandler
 {
     /**
@@ -45,16 +48,32 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        dd($exception);
+        
+        // print_r($request);
+        // echo "<br><br>";
+        // dd($exception);
         if($exception->getMessage()){
+            
             Session::put('exce_error','yes');
-            return redirect('/auth/logout');
+            if($exception->getMessage() == 'Unauthenticated.'){
+               
+                //Auth::logout();
+
+                Request::session()->flush();
+        
+                Request::session()->regenerate();
+                
+                return redirect('/login')->withErrors(array('Session Expired due to Inactivity!!'));
+
+            }
+            // return redirect('/auth/logout');
         }
         
         if ($exception instanceof ModelNotFoundException) {
             $exception = new NotFoundHttpException($exception->getMessage(), $exception);
         }else{
-            $exception = new NotFoundHttpException($exception->getMessage(), $exception);
+            dd($exception);
+            // $exception = new NotFoundHttpException($exception->getMessage(), $exception);
         }
         return parent::render($request, $exception);
     }
@@ -70,8 +89,9 @@ class Handler extends ExceptionHandler
     {
         if ($request->expectsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
+            
         }
 
-        return redirect()->guest('/');
+        return redirect()->guest(route('login'));
     }
 }

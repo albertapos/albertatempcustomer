@@ -1,4 +1,6 @@
 <ul id="menu">
+    
+    
   <li id="dashboard"><a href="<?php echo $home; ?>"><i class="fa fa-dashboard fa-fw"></i> <span><?php echo $text_dashboard; ?></span></a></li>
   <li id="catalog"><a class="parent active"><i class="fa fa-tags fa-fw"></i> <span><?php echo $text_kiosk; ?></span></a>
     <ul>
@@ -11,3 +13,8 @@
     </ul>
   </li>  
 </ul>
+
+<script type="text/javascript">
+
+$("#column-left").addClass('active');
+</script>

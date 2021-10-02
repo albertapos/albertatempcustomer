@@ -31,6 +31,53 @@ CREATE TABLE `agreement` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+DROP TABLE IF EXISTS `mst_userpermissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mst_userpermissions` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(11) NOT NULL,
+  `permission_id` varchar(255) NOT NULL,
+  `status` enum('Active','Inactive') NOT NULL DEFAULT 'Active',
+  `created_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_id` int(11) NOT NULL,
+  `LastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `SID` int(11) NOT NULL DEFAULT '1001',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=775 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS `mst_physical_inventory_assign_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mst_physical_inventory_assign_users` (
+  `assign_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ipiid` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `LastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `SID` int(11) NOT NULL DEFAULT '1001',
+  `status` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`assign_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS `trn_physical_inventory_usercount`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `trn_physical_inventory_usercount` (
+  `piuc_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ipiid` int(11) DEFAULT NULL,
+  `sku` varchar(255) DEFAULT NULL,
+  `physical_qty` varchar(255) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `LastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `SID` int(11) NOT NULL DEFAULT '1001',
+  PRIMARY KEY (`piuc_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=103 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 --
 -- Table structure for table `detail_trans_table`
 --
@@ -1174,6 +1221,7 @@ CREATE TABLE `mst_plcb_item` (
   `malt` TINYINT NOT NULL DEFAULT  '0',
   `SID` int(11) DEFAULT '0',
   `LastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1192,6 +1240,7 @@ CREATE TABLE `mst_plcb_item_detail` (
   `prev_mo_purchase` int(11) NOT NULL,
   `SID` int(11) NOT NULL DEFAULT '0',
   `LastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,  
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1447,6 +1496,12 @@ CREATE TABLE `mst_supplier` (
   `LastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `SID` int(11) NOT NULL DEFAULT '0',
   `plcbtype` varchar(45) DEFAULT NULL,
+  `edi` int(11) DEFAULT NULL,
+  `upc_convert` ENUM('A', 'E', '0') NOT NULL DEFAULT 0,
+  `remove_first_digit` ENUM('Y', 'N', '0') NOT NULL DEFAULT 0,
+  `remove_last_digit` ENUM('Y', 'N', '0') NOT NULL DEFAULT 0,
+  `check_digit` ENUM('Y', 'N', '0') NOT NULL DEFAULT 0,
+  `vendor_format` varchar(45) NOT NULL DEFAULT '',
   PRIMARY KEY (`isupplierid`),
   KEY `mst_supplier_vsuppliecode` (`vsuppliercode`)
 ) ENGINE=MyISAM AUTO_INCREMENT=186 DEFAULT CHARSET=utf8;
@@ -1899,6 +1954,7 @@ CREATE TABLE `trn_customerpay` (
   `LastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `SID` int(11) NOT NULL DEFAULT '0',
   `salesid` BIGINT(30) NULL DEFAULT 0,
+  `batchid` int(11) DEFAULT NULL,
   PRIMARY KEY (`icpid`),
   KEY `idx_trn_customerpay_icpid` (`icpid`,`dtrandate`,`itenderid`,`vmpstenderid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
@@ -2716,6 +2772,36 @@ CREATE TABLE `trn_purchaseorder` (
 DROP TABLE IF EXISTS `trn_purchaseorderdetail`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
+
+-- CREATE TABLE `trn_purchaseorderdetail` (
+--   `ipodetid` int(11) NOT NULL AUTO_INCREMENT,
+--   `ipoid` int(11) DEFAULT NULL,
+--   `vitemid` varchar(50) DEFAULT NULL,
+--   `vitemname` varchar(100) DEFAULT NULL,
+--   `vunitcode` varchar(25) DEFAULT NULL,
+--   `vunitname` varchar(50) DEFAULT NULL,
+--   `nordqty` decimal(15,2) DEFAULT '0.00',
+--   `nrceqty` decimal(15,2) DEFAULT '0.00',
+--   `nordunitprice` decimal(15,2) DEFAULT '0.00',
+--   `nreceunitprice` decimal(15,2) DEFAULT '0.00',
+--   `nordtax` decimal(15,2) DEFAULT NULL,
+--   `nordextprice` decimal(15,4) DEFAULT '0.0000',
+--   `nrceextprice` decimal(15,2) DEFAULT '0.00',
+--   `nordtextprice` decimal(15,2) DEFAULT '0.00',
+--   `nrcetextprice` decimal(15,2) DEFAULT '0.00',
+--   `nnewunitprice` decimal(15,2) DEFAULT '0.00',
+--   `vbarcode` varchar(50) DEFAULT NULL,
+--   `vvendoritemcode` varchar(50) DEFAULT NULL,
+--   `npackqty` int(11) DEFAULT '0',
+--   `nunitcost` decimal(15,4) DEFAULT '0.0000',
+--   `itotalunit` int(11) DEFAULT '0',
+--   `vsize` varchar(100) DEFAULT NULL,
+--   `LastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--   `SID` int(11) NOT NULL DEFAULT '0',
+--   `nripamount` DECIMAL(15,2) NULL DEFAULT '0',
+--   PRIMARY KEY (`ipodetid`),
+--   KEY `idx_trn_purchaseorderdetail_id` (`ipoid`,`vitemid`)
+-- ) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 CREATE TABLE `trn_purchaseorderdetail` (
   `ipodetid` int(11) NOT NULL AUTO_INCREMENT,
   `ipoid` int(11) DEFAULT NULL,
@@ -2723,9 +2809,11 @@ CREATE TABLE `trn_purchaseorderdetail` (
   `vitemname` varchar(100) DEFAULT NULL,
   `vunitcode` varchar(25) DEFAULT NULL,
   `vunitname` varchar(50) DEFAULT NULL,
+  `po_order_by` varchar(5) NOT NULL DEFAULT 'case',
   `nordqty` decimal(15,2) DEFAULT '0.00',
   `nrceqty` decimal(15,2) DEFAULT '0.00',
   `nordunitprice` decimal(15,2) DEFAULT '0.00',
+  `po_last_costprice` decimal(15,2) DEFAULT '0.00',
   `nreceunitprice` decimal(15,2) DEFAULT '0.00',
   `nordtax` decimal(15,2) DEFAULT NULL,
   `nordextprice` decimal(15,4) DEFAULT '0.0000',
@@ -2739,12 +2827,13 @@ CREATE TABLE `trn_purchaseorderdetail` (
   `nunitcost` decimal(15,4) DEFAULT '0.0000',
   `itotalunit` int(11) DEFAULT '0',
   `vsize` varchar(100) DEFAULT NULL,
+  `po_total_suggested_cost` decimal(15,2) NOT NULL DEFAULT '0.00',
   `LastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `SID` int(11) NOT NULL DEFAULT '0',
-  `nripamount` DECIMAL(15,2) NULL DEFAULT '0',
+  `nripamount` decimal(15,2) DEFAULT '0.00',
   PRIMARY KEY (`ipodetid`),
   KEY `idx_trn_purchaseorderdetail_id` (`ipoid`,`vitemid`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3502,6 +3591,28 @@ CREATE TABLE `web_trn_hold_order_items` (
   `LastUpdate` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`TransId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
+/*  Table structure of setting*/
+DROP TABLE IF EXISTS `mst_ftp_settings`;
+CREATE TABLE `mst_ftp_settings` (
+  `ftp_id` int(11) NOT NULL AUTO_INCREMENT,
+  `mfr_retail_no` varchar(45) DEFAULT NULL,
+  `manufacturer` varchar(100) DEFAULT NULL,
+  `host` varchar(100) DEFAULT NULL,
+  `ftp_username` varchar(45) DEFAULT NULL,
+  `ftp_password` varchar(45) DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `LastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `SID` int(11) NOT NULL DEFAULT '100154',
+  `dept_code` json DEFAULT NULL,
+  `cat_code` json DEFAULT NULL,
+  `purpose` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`ftp_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4527,14 +4638,16 @@ DELIMITER ;
 DELIMITER ;;
 CREATE  PROCEDURE `rp_datewisemonthlysales`(sdate varchar(20),edate varchar(20))
 BEGIN
-					select PDATE,TAX,NONTAX,NNETTOTAL,sdate as odate,edate as oedate from (	select     date_format(dtrandate,'%M-%Y') as PDATE,
+		select PDATE,TAX,NONTAX,NNETTOTAL,sdate as odate,edate as oedate ,nDATE from (	
+		select date_format(dtrandate,'%M-%Y') as PDATE,
+		date_format(dtrandate,'%Y-%m') as nDATE,
 		case when sum(NTAXTOTAL) is null then 0 else sum(NTAXTOTAL) end as TAX,
 		case when sum(NNONTAXABLETOTAL) is null then 0 else sum(NNONTAXABLETOTAL) end as NONTAX,
 		case when sum(nnettotal) is null then 0 else sum(nnettotal)  end as NNETTOTAL
 		from trn_sales 
 		where date_format(dtrandate,'%Y-%m-%d')  
 		between str_to_date(sdate,'%m-%d-%Y') and str_to_date(edate,'%m-%d-%Y') and vtrntype='Transaction'
-		group by 1 ) as a;
+		group by 1 ) as a order by nDATE;
                  
 END ;;
 DELIMITER ;
@@ -6081,20 +6194,100 @@ DELIMITER ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
+/*old*/
+/*DELIMITER ;;
+-- CREATE  PROCEDURE `rp_taxcollection`(sdate varchar(20),edate varchar(20))
+-- BEGIN
+-- select TAX,NONTAX,TAXAMOUNT,NETTOTAL as NNETTOTAL,sdate as odate,edate as oedate 
+-- from (
+-- select  case when sum(NTAXTOTAL) is null then 0 else sum(NTAXTOTAL) end as TAX,
+--                 case when sum(NNONTAXABLETOTAL) is null then 0 else sum(NNONTAXABLETOTAL) end as NONTAX,
+--                 case when sum(NTAXABLETOTAL) is null then 0 else sum(NTAXABLETOTAL) end as TAXAMOUNT,
+--                 case when sum(nnettotal) is null then 0 else sum(nnettotal)  end as NETTOTAL
+--                 from trn_sales where date_format(dtrandate,'%Y-%m-%d')  
+-- 		between str_to_date(sdate,'%m-%d-%Y') and str_to_date(edate,'%m-%d-%Y') and vtrntype='Transaction' ) as a;
+   
+-- END ;;
+-- DELIMITER ;*/
+/*old*/
+
+
+
+-- DELIMITER $
+-- CREATE PROCEDURE `rp_taxcollection`(sdate varchar(20),edate varchar(20))
+-- BEGIN
+-- select TAX,NONTAX,TAXAMOUNT,NETTOTAL as NNETTOTAL,sdate as odate,edate as oedate, tax1, tax2 
+-- from 
+
+-- (
+-- select  case when sum(NTAXTOTAL) is null then 0 else sum(NTAXTOTAL) end as TAX,
+--                 case when sum(NNONTAXABLETOTAL) is null then 0 else sum(NNONTAXABLETOTAL) end as NONTAX,
+--                 case when sum(NTAXABLETOTAL) is null then 0 else sum(NTAXABLETOTAL) end as TAXAMOUNT,
+--                 case when sum(nnettotal) is null then 0 else sum(nnettotal)  end as NETTOTAL
+--                 from trn_sales where date_format(dtrandate,'%Y-%m-%d')  
+-- 		between str_to_date(sdate,'%m-%d-%Y') and str_to_date(edate,'%m-%d-%Y') and vtrntype='Transaction' 
+-- ) as a
+        
+--       cross join 
+ 
+-- (
+--     select sum(case when itemtaxrateone >0 then nitemtax/npack else 0 end) tax1,  
+--           sum(case when itemtaxratetwo >0 then nitemtax/npack else 0 end) tax2 
+-- 	from trn_salesdetail 
+--     where isalesid in (	select  isalesid 
+-- 						from trn_sales 
+--                         where (date_format(dtrandate,'%Y-%m-%d') 
+-- 						between str_to_date(sdate,'%m-%d-%Y') and str_to_date(edate,'%m-%d-%Y')) 
+--                         and vtrntype='Transaction')
+-- ) as b;
+   
+-- END $$
+
+-- DELIMITER ;
+
+/* new store procedure */
+
+DELIMITER $
+
 CREATE  PROCEDURE `rp_taxcollection`(sdate varchar(20),edate varchar(20))
 BEGIN
-select TAX,NONTAX,TAXAMOUNT,NETTOTAL as NNETTOTAL,sdate as odate,edate as oedate 
-from (
+select TAX,NONTAX,TAXAMOUNT,NETTOTAL as NNETTOTAL,sdate as odate,edate as oedate, tax1, tax2, Tax1Sales, Tax2Sales
+from 
+
+(
 select  case when sum(NTAXTOTAL) is null then 0 else sum(NTAXTOTAL) end as TAX,
                 case when sum(NNONTAXABLETOTAL) is null then 0 else sum(NNONTAXABLETOTAL) end as NONTAX,
                 case when sum(NTAXABLETOTAL) is null then 0 else sum(NTAXABLETOTAL) end as TAXAMOUNT,
                 case when sum(nnettotal) is null then 0 else sum(nnettotal)  end as NETTOTAL
                 from trn_sales where date_format(dtrandate,'%Y-%m-%d')  
-		between str_to_date(sdate,'%m-%d-%Y') and str_to_date(edate,'%m-%d-%Y') and vtrntype='Transaction' ) as a;
+		between str_to_date(sdate,'%m-%d-%Y') and str_to_date(edate,'%m-%d-%Y') and vtrntype='Transaction' 
+) as a
+        
+      cross join 
+ 
+(
+    select sum(nextunitprice * itemtaxrateone / 100) tax1,  
+           sum(nextunitprice * itemtaxratetwo / 100) tax2 ,
+           
+           sum(case when itemtaxrateone>0 then nextunitprice else 0 end) Tax1Sales,
+           sum(case when itemtaxrateTwo>0 then nextunitprice else 0 end) Tax2Sales
+	from trn_salesdetail 
+    where isalesid in (	select  isalesid 
+    
+						from trn_sales 
+                        where (date_format(dtrandate,'%Y-%m-%d') 
+						between str_to_date(sdate,'%m-%d-%Y') and str_to_date(edate,'%m-%d-%Y')) 
+                        and vtrntype='Transaction')  and vtax='Y'
+) as b   
+        
+;
    
-END ;;
+END$$
+
 DELIMITER ;
+
+
+
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
@@ -7139,3 +7332,593 @@ ALTER TABLE `mst_item` ADD `new_costprice` FLOAT(15,2) NOT NULL DEFAULT '0.00'  
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2016-11-26 13:00:15
+
+
+
+
+
+
+-- ======================================================================================================================
+-- FOR ALBERTAPOS 3.0
+-- ======================================================================================================================
+
+
+
+-- ===================================================================================================================================
+-- ADDING TABLES
+-- ===================================================================================================================================
+
+    
+    CREATE TABLE IF NOT EXISTS `mst_prom_type` (
+     `prom_type_id` int(11) NOT NULL AUTO_INCREMENT,
+     `prom_description` varchar(100) DEFAULT NULL,
+     `is_active` tinyint(1) DEFAULT '1',
+     `LastUpdate` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+     `SID` INT(11) NOT NULL DEFAULT '1234',
+  PRIMARY KEY (`prom_type_id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+    
+    /* Add default rows in mst_prom_type */
+    
+    delete from mst_prom_type;
+
+    INSERT INTO `mst_prom_type` (`prom_type_id`, `prom_description`, `is_active`, `LastUpdate`) VALUES ('1', 'Buy N get discount', '1', '2019-02-25 12:24:28');
+    INSERT INTO `mst_prom_type` (`prom_type_id`, `prom_description`, `is_active`, `LastUpdate`) VALUES ('2', 'Buy X get Y at discount', '0', '2019-02-25 12:24:28');
+    INSERT INTO `mst_prom_type` (`prom_type_id`, `prom_description`, `is_active`, `LastUpdate`) VALUES ('3', 'Buy X Get Y Free', '0', '2019-02-25 12:24:28');
+    INSERT INTO `mst_prom_type` (`prom_type_id`, `prom_description`, `is_active`, `LastUpdate`) VALUES ('4', 'Buy first X at discount during a period', '0', '2019-02-25 12:24:28');
+    INSERT INTO `mst_prom_type` (`prom_type_id`, `prom_description`, `is_active`, `LastUpdate`) VALUES ('5', 'X $ off on Y $ Sale Value', '0', '2019-03-13 07:58:39');
+    INSERT INTO `mst_prom_type` (`prom_type_id`, `prom_description`, `is_active`, `LastUpdate`) VALUES ('6', 'N% off on entire sale Value with a limit on the total invoice / sale value', '0', '2019-02-25 12:24:28');
+    INSERT INTO `mst_prom_type` (`prom_type_id`, `prom_description`, `is_active`, `LastUpdate`) VALUES ('7', 'N% off on sale value', '0', '2019-02-25 12:24:28');
+    INSERT INTO `mst_prom_type` (`prom_type_id`, `prom_description`, `is_active`, `LastUpdate`) VALUES ('8', 'Product X is discounted on Total Bill Value is > Y', '0', '2019-02-25 12:24:28');
+    INSERT INTO `mst_prom_type` (`prom_type_id`, `prom_description`, `is_active`, `LastUpdate`) VALUES ('9', 'Buy 3 different products get least priced one free', '0', '2019-02-25 12:24:28');
+    INSERT INTO `mst_prom_type` (`prom_type_id`, `prom_description`, `is_active`, `LastUpdate`) VALUES ('10', 'Slab Price', '1', '2019-02-25 12:24:28');
+    INSERT INTO `mst_prom_type` (`prom_type_id`, `prom_description`, `is_active`, `LastUpdate`) VALUES ('11', 'Grouped Item with Customised Price.', '0', '2019-02-25 12:24:28');
+    INSERT INTO `mst_prom_type` (`prom_type_id`, `prom_description`, `is_active`, `LastUpdate`) VALUES ('12', 'Manufacturer Buy Down', '1', '2019-02-25 12:24:28');
+
+    
+CREATE TABLE IF NOT EXISTS `acct_staging` (
+  `acct_staging_id` INT NOT NULL AUTO_INCREMENT ,
+  `file_name` VARCHAR(45) NULL ,
+  `imported_by` VARCHAR(45) NULL ,
+  `no_of_trns` INT(11) NULL ,
+  `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ,
+  `LastUpdate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+  `SID` INT(11) NOT NULL DEFAULT '1234' ,
+  PRIMARY KEY (`acct_staging_id`)  );
+  
+  
+CREATE TABLE IF NOT EXISTS  `trn_prom_customers` (
+  `prom_cust_id` INT NOT NULL AUTO_INCREMENT ,
+  `prom_id` INT(11) NULL ,
+  `cust_id` INT(11) NULL ,
+  `LastUpdate` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+  `SID` INT(11) NOT NULL DEFAULT '1234' ,
+  PRIMARY KEY (`prom_cust_id`)  );
+  
+  
+CREATE TABLE IF NOT EXISTS `mst_prom_type` (
+  `prom_type_id` int(11) NOT NULL AUTO_INCREMENT,
+  `prom_description` varchar(100) DEFAULT NULL,
+  `is_active` tinyint(1) DEFAULT '1',
+  `LastUpdate` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `SID` INT(11) NOT NULL DEFAULT '1234',
+  PRIMARY KEY (`prom_type_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+
+
+CREATE TABLE IF NOT EXISTS `trn_prom_details` (
+ `prom_detail_id` int(11) NOT NULL AUTO_INCREMENT,
+  `prom_id` int(11) DEFAULT NULL,
+  `barcode` varchar(45) DEFAULT NULL,
+  `unit_price` double DEFAULT NULL,
+  `discounted_price` double DEFAULT NULL,
+  `LastUpdate` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `SID` INT(11) NOT NULL DEFAULT '1234',
+  PRIMARY KEY (`prom_detail_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2152 DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE IF NOT EXISTS `trn_promotions` (
+  `prom_id` int(11) NOT NULL AUTO_INCREMENT,
+  `prom_name` varchar(200) DEFAULT NULL,
+  `prom_code` varchar(10) DEFAULT NULL,
+  `category` varchar(45) DEFAULT NULL,
+  `period` varchar(45) DEFAULT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
+  `from_time` time DEFAULT NULL,
+  `to_time` time DEFAULT NULL,
+  `qty_limit` int(11) DEFAULT NULL,
+  `qty_limit_bal` int(11) DEFAULT NULL,
+  `prom_type_id` int(11) DEFAULT NULL,
+  `buy_qty` int(11) DEFAULT NULL,
+  `same_group` enum('Same Item','Group Item') DEFAULT NULL,
+  `disc_each_nth` enum('Each','Nth') NOT NULL DEFAULT 'Nth',
+  `bill_value` double DEFAULT NULL,
+  `discount_type_id` int(11) DEFAULT NULL,
+  `discounted_value` double NOT NULL DEFAULT '0',
+  `addl_disc_cust` double NOT NULL DEFAULT '0',
+  `discounted_item` varchar(256) DEFAULT NULL,
+  `discount_limit` double DEFAULT NULL,
+  `exclude_include` char(1) NOT NULL DEFAULT 'I',
+  `slab_price` double DEFAULT NULL,
+  `img_url` varchar(256) DEFAULT NULL,
+  `mfg_prom_desc` varchar(45) DEFAULT NULL,
+  `mfg_buydown_desc` varchar(45) DEFAULT NULL,
+  `mfg_multipack_desc` varchar(45) DEFAULT NULL,
+  `mfg_discount` double DEFAULT NULL,
+  `status` varchar(10) DEFAULT NULL,
+  `LastUpdate` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `SID` INT(11) NOT NULL DEFAULT '1234',
+  PRIMARY KEY (`prom_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE IF NOT EXISTS `mst_manufacturer` (
+  `mfr_id` int(11) NOT NULL AUTO_INCREMENT,
+  `mfr_code` varchar(45) DEFAULT NULL,
+  `mfr_name` varchar(45) DEFAULT NULL,
+  `status` varchar(45) DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `LastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `SID` INT(11) NOT NULL DEFAULT '1234',
+  PRIMARY KEY (`mfr_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+CREATE TABLE IF NOT EXISTS `mst_subcategory` (
+  `subcat_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cat_id` int(11) NOT NULL,
+  `subcat_name` varchar(100) NOT NULL,
+  `status` varchar(45) DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `LastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `SID` INT(11) NOT NULL DEFAULT '1234',
+  PRIMARY KEY (`subcat_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE IF NOT EXISTS `time_clock_break` (
+  `tc_br_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `break_type` varchar(45) DEFAULT NULL,
+  `break_out_time` datetime DEFAULT NULL,
+  `break_in_time` datetime DEFAULT NULL,
+  `status` varchar(45) DEFAULT NULL,
+  `SID` int(11) NOT NULL DEFAULT '1234',
+  `LastUpdate` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`tc_br_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE IF NOT EXISTS `time_clock_login` (
+  `tc_login_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `login_time` datetime DEFAULT NULL,
+  `logout_time` datetime DEFAULT NULL,
+  `status` varchar(45) DEFAULT NULL,
+  `SID` int(11) NOT NULL DEFAULT '1234',
+  `LastUpdate` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`tc_login_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE IF NOT EXISTS `mst_version` (
+  `ver_id` int(11) NOT NULL,
+  `ver_no` varchar(45) DEFAULT NULL,
+  `update_dt` datetime DEFAULT NULL,
+  `update_type` enum('Manual','Auto') DEFAULT 'Manual',
+  `ftp_folder_name` varchar(45) DEFAULT NULL,
+  `create_dt` datetime DEFAULT CURRENT_TIMESTAMP,
+  `LastUpdate` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `SID` int(11) NOT NULL DEFAULT '1234',
+  PRIMARY KEY (`ver_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/* To create label_print table */
+CREATE TABLE IF NOT EXISTS `label_print` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `barcode` varchar(15) DEFAULT NULL,
+  `status` enum('Open','Close','Print') DEFAULT 'Open',
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `LastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `SID` int(11) NOT NULL DEFAULT '1234',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+ALTER TABLE `trn_paidoutdetail` 
+CHANGE COLUMN `ipaidouttrnid` `ipaidouttrnid` INT(15) NULL DEFAULT '0'  ;
+
+
+
+/*
+===================================================================================================================================
+ADDING COLUMNS
+===================================================================================================================================
+*/
+
+
+
+
+/* Add loyalty_points column in mst_customer */
+
+set @col_exists = 0;
+SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME='mst_customer'
+AND column_name='loyalty_points'
+and table_schema = database()
+into @col_exists;
+
+#select @col_exists;
+
+set @stmt = case @col_exists
+when 0 then CONCAT(
+'alter table mst_customer'
+, ' ADD COLUMN `loyalty_points` FLOAT NULL DEFAULT 0 AFTER `note`'
+,';')
+else 'select ''column already exists, no op'''
+end;
+
+PREPARE stmt FROM @stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+
+
+
+
+/* Add dept_code column in mst_category */
+
+set @col_exists = 0;
+SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME='mst_category'
+AND column_name='dept_code'
+and table_schema = database()
+into @col_exists;
+
+#select @col_exists;
+
+set @stmt = case @col_exists
+when 0 then CONCAT(
+'alter table mst_category'
+, ' ADD COLUMN `dept_code` INT(11) NOT NULL  AFTER `SID`'
+,';')
+else 'select ''column already exists, no op'''
+end;
+
+PREPARE stmt FROM @stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+	
+	
+
+/* Add subcat_id column in mst_item */
+
+set @col_exists = 0;
+SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME='mst_item'
+AND column_name='subcat_id'
+and table_schema = database()
+into @col_exists;
+
+#select @col_exists;
+
+set @stmt = case @col_exists
+when 0 then CONCAT(
+'alter table mst_item'
+, ' ADD COLUMN `subcat_id` INT(11) NULL  AFTER `new_costprice`'
+,';')
+else 'select ''column already exists, no op'''
+end;
+
+PREPARE stmt FROM @stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+
+		
+		
+
+/* Add manufacturer_id column in mst_item */
+
+set @col_exists = 0;
+SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME='mst_item'
+AND column_name='manufacturer_id'
+and table_schema = database()
+into @col_exists;
+
+#select @col_exists;
+
+set @stmt = case @col_exists
+when 0 then CONCAT(
+'alter table mst_item'
+, ' ADD COLUMN `manufacturer_id` INT(11) NULL  AFTER `subcat_id`'
+,';')
+else 'select ''column already exists, no op'''
+end;
+
+PREPARE stmt FROM @stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+		
+		
+    
+    
+    /* Add reorder_duration column in mst_item */
+
+set @col_exists = 0;
+SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME='mst_item'
+AND column_name='reorder_duration'
+and table_schema = database()
+into @col_exists;
+
+#select @col_exists;
+
+set @stmt = case @col_exists
+when 0 then CONCAT(
+'alter table mst_item'
+, ' ADD COLUMN `reorder_duration` INT(3) NULL  AFTER `manufacturer_id`'
+,';')
+else 'select ''column already exists, no op'''
+end;
+
+PREPARE stmt FROM @stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+		
+		
+    
+/* Add current_ver column in mst_register */
+
+	
+set @col_exists = 0;
+SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME='mst_register'
+AND column_name='current_ver'
+and table_schema = database()
+into @col_exists;
+
+#select @col_exists;
+
+set @stmt = case @col_exists
+when 0 then CONCAT(
+'alter table mst_register'
+, ' ADD COLUMN `current_ver` VARCHAR(5) NULL  AFTER `SID`'
+,';')
+else 'select ''column already exists, no op'''
+end;
+
+PREPARE stmt FROM @stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+		
+		
+
+/* Add ver_update_avl column in mst_store */
+
+set @col_exists = 0;
+SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME='mst_register'
+AND column_name='ver_update_avl'
+and table_schema = database()
+into @col_exists;
+
+#select @col_exists;
+
+set @stmt = case @col_exists
+when 0 then CONCAT(
+'alter table mst_register'
+, ' ADD COLUMN `ver_update_avl` TINYINT(1) NULL DEFAULT 1  AFTER `current_ver`'
+,';')
+else 'select ''column already exists, no op'''
+end;
+
+PREPARE stmt FROM @stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+		
+
+    
+    ALTER TABLE `trn_paidoutdetail` 
+	CHANGE COLUMN `ipaidouttrnid` `ipaidouttrnid` INT(15) NULL DEFAULT '0'  ;
+
+	
+	/*
+	================================================================================================================================
+	Add default data into tables
+	=================================================================================================================================
+	*/
+
+ /* Add mst_version, `TranTypeId`='3' row in mst_synctable */
+
+
+	
+set @col_exists = 0;
+
+select count(*) from mst_synctable where `TableName`='mst_version' and `TranTypeId`='3'
+into @col_exists;
+
+
+set @stmt = case @col_exists
+when 0 then CONCAT(
+'INSERT INTO `mst_synctable` (`Id`, `TableName`, `Sequence`, `TranTypeId`, `SqlOperation`) VALUES (173, ''mst_version'', 58, 3, 0)'
+,';')
+else 'select ''column already exists, no op'''
+end;
+
+PREPARE stmt FROM @stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+		
+
+
+ 
+ 
+ /* Add mst_prom_type, `TranTypeId`='3' row in mst_synctable */
+ 
+ 	
+set @col_exists = 0;
+
+select count(*) from mst_synctable where `TableName`='mst_prom_type' and `TranTypeId`='3'
+into @col_exists;
+
+
+set @stmt = case @col_exists
+when 0 then CONCAT(
+'INSERT INTO `mst_synctable` (`Id`, `TableName`, `Sequence`, `TranTypeId`, `SqlOperation`) VALUES (172, ''mst_prom_type'', 57, 3, 0)'
+,';')
+else 'select ''column already exists, no op'''
+end;
+
+PREPARE stmt FROM @stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+		
+
+
+
+    
+   /* Add trn_promotions, `TranTypeId`='3' row in mst_synctable */
+   
+   	
+set @col_exists = 0;
+
+select count(*) from mst_synctable where `TableName`='trn_promotions' and `TranTypeId`='3'
+into @col_exists;
+
+
+set @stmt = case @col_exists
+when 0 then CONCAT(
+'INSERT INTO `mst_synctable` (`Id`, `TableName`, `Sequence`, `TranTypeId`, `SqlOperation`) VALUES (171, ''trn_promotions'', 56, 3, 0)'
+,';')
+else 'select ''column already exists, no op'''
+end;
+
+PREPARE stmt FROM @stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+		
+
+
+    
+ /* Add trn_prom_details, `TranTypeId`='3' row in mst_synctable */
+ 
+   	
+set @col_exists = 0;
+
+select count(*) from mst_synctable where `TableName`='trn_prom_details' and `TranTypeId`='3'
+into @col_exists;
+
+
+set @stmt = case @col_exists
+when 0 then CONCAT(
+'INSERT INTO `mst_synctable` (`Id`, `TableName`, `Sequence`, `TranTypeId`, `SqlOperation`) VALUES (170, ''trn_prom_details'', 55, 3, 0)'
+,';')
+else 'select ''column already exists, no op'''
+end;
+
+PREPARE stmt FROM @stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+
+
+/* Add mst_subcategory, `TranTypeId`='3' row in mst_synctable */
+ 
+   	
+set @col_exists = 0;
+
+select count(*) from mst_synctable where `TableName`='mst_subcategory' and `TranTypeId`='3'
+into @col_exists;
+
+
+set @stmt = case @col_exists
+when 0 then CONCAT(
+'INSERT INTO `mst_synctable` (`Id`, `TableName`, `Sequence`, `TranTypeId`, `SqlOperation`) VALUES (169, ''mst_subcategory'', 54, 3, 0)'
+,';')
+else 'select ''column already exists, no op'''
+end;
+
+PREPARE stmt FROM @stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+
+/* Add 'General' department in mst_department */
+ 
+   	
+set @col_exists = 0;
+
+select count(*) from mst_department where `idepartmentid`= 1
+into @col_exists;
+
+
+set @stmt = case @col_exists
+when 0 then CONCAT(
+"INSERT INTO `mst_department` (`idepartmentid`, `vdepcode`, `vdepartmentname`, `estatus`) VALUES (1, 1, 'General', 'Active')"
+,";")
+else CONCAT(
+"update `mst_department` set `vdepcode`=1, `vdepartmentname`='General', `estatus`= 'Active' where `idepartmentid`= 1"
+,";")
+end;
+
+PREPARE stmt FROM @stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+		
+
+
+/* Add 'General' category in mst_category */
+ 
+   	
+set @col_exists = 0;
+
+select count(*) from mst_category where `icategoryid`= 1
+into @col_exists;
+
+
+set @stmt = case @col_exists
+when 0 then CONCAT(
+"INSERT INTO `mst_category` (`icategoryid`, `vcategorycode`, `vcategoryname`, `isequence`, `estatus`, `dept_code`) VALUES (1, 1, 'General', 1, 'Active', 1)"
+,";")
+else CONCAT(
+"update `mst_category` set `vcategorycode`=1, `vcategoryname`='General', `estatus`= 'Active' where `icategoryid`= 1"
+,";")
+end;
+
+PREPARE stmt FROM @stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+
+/* Add 'General' subcategory in mst_subcategory */
+ 
+   	
+set @col_exists = 0;
+
+select count(*) from mst_subcategory where `subcat_id`= 1
+into @col_exists;
+
+
+set @stmt = case @col_exists
+when 0 then CONCAT(
+"INSERT INTO `mst_subcategory` (`subcat_id`, `cat_id`, `subcat_name`, `status`) VALUES (1, 1, 'General', 'Active')"
+,";")
+else CONCAT(
+"update `mst_subcategory` set `cat_id`=1, `subcat_name`='General', `status`= 'Active' where `subcat_id`= 1"
+,";")
+end;
+
+PREPARE stmt FROM @stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;

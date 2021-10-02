@@ -21,6 +21,7 @@
     <!-- Theme style -->
     <link href="{{ asset('assets/css/AdminLTE.css') }}" rel="stylesheet" type="text/css"/>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    @yield('head')
 
 </head>
 <body class="skin-black fixed">

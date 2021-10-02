@@ -8,6 +8,9 @@ class MST_STORE extends Model
 {
     protected $connection = 'mysql2';
     protected $table = 'mst_store';
+    protected $primaryKey = 'istoreid'; // or null
+
+    public $incrementing = false;
     public $timestamps = false;
 
     public function dailySales(){

@@ -48,9 +48,45 @@
     <a href="<?php echo $home; ?>" class="navbar-brand"><img src="view/image/Alberta POS_Logo.png" height="25" width="60" alt="<?php echo $heading_title; ?>" title="<?php echo $heading_title; ?>" /></a></div>    
   <?php if ($logged) { ?>
   
-  <ul class="nav pull-right">  	
+  <ul class="nav pull-right">
+    <li>
+        <?php if($stores) { ?>
+            <select id="store_list" class="form-control" style="padding-top:5px !important;">
+                <?php foreach($stores as $store) {?>
+                    <option value="<?php echo $store['id'];?>" <?php echo ($store['id'] == $SID) ? 'selected' : '' ;?>><?php echo $store['name'];?></option>
+                <?php } ?>
+            </select>
+        <?php } ?>
+    </li>  	
     <li><a href="<?php echo $logout; ?>"><span class="hidden-xs hidden-sm hidden-md"><?php echo $text_logout; ?></span> <i class="fa fa-sign-out fa-lg"></i></a></li>
+    
   </ul>
   <div style="border:0px solid #000; width:100%; text-align:center; margin-top:10px; font-size:18px; color:#F30; font-weight:bold;">Store - <?php echo $storename;?></div>
+  
   <?php } ?>
 </header>
+<style type="text/css">
+    .title_div{
+        border: 1px solid #ddd;
+        padding: 5px;
+    }
+    .align-self {position: relative; margin-top: 17px;}
+    .select2-selection__rendered {
+        line-height: 31px !important;
+    }
+    .select2-container .select2-selection--single {
+        height: 35px !important;
+    }
+    .select2-selection__arrow {
+        height: 34px !important;
+    }
+    .select2-container{
+        width:150px;padding-top:5px;
+    }
+</style>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script type="text/javascript">
+    $('#store_list').select2();
+</script>

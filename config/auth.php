@@ -43,7 +43,7 @@ return [
 
         'api' => [
             'driver' => 'jwt',
-            'provider' => 'users',
+            'provider' => 'store_mw_users',
         ],
     ],
 
@@ -70,10 +70,10 @@ return [
             'model' => pos2020\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'store_mw_users' => [
+            'driver' => 'eloquent',
+            'model' => pos2020\StoreMwUsers::class,
+        ],
     ],
 
     /*

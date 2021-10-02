@@ -82,6 +82,8 @@ class CustmobController extends Controller
                 $cust->taken = 0;
                 $cust->save();
             }
+            
+            
             return response()->json(['message' => 'Thank you for your co-operation.', 'status' => 'ok'], 200);
         }
     }
@@ -91,15 +93,24 @@ class CustmobController extends Controller
         
         $input = Request::all();
         
+        // Validation
+        if(!isset($input['sid'])){
+            return response()->json(['error' => 'It is mandatory to send sid', 'status' => 'error'], 400);
+        }
+        
+        if(!isset($input['reg_no'])){
+            return response()->json(['error' => 'It is mandatory to send reg_no', 'status' => 'error'], 400);
+        }
+        
         // Check if the store exists in the database;
         $store = Store::find($input['sid']);
-        if(!isset($store) || empty($store)){
+        if(!isset($store->id)){
            return response()->json(['error' => 'That store does not exist in the database.', 'status' => 'error'], 400); 
         }
         
         // Check if the register exists in the store
         $store_computer = storeComputer::where('store_id', '=', $input['sid'])->where('uid','=',$input['reg_no'])->first();
-        if(!isset($store_computer) || empty($store_computer)){
+        if(!isset($store_computer->uid) || empty($store_computer)){
            return response()->json(['error' => 'That register does not exist in the store.', 'status' => 'error'], 400); 
         }
         
@@ -189,9 +200,41 @@ class CustmobController extends Controller
             $new_ac_number = $account_first_part.$account_second_part;
             
             
-            $insert_query = 'INSERT INTO '.$db.'.mst_customer (vcustomername, vtaxable, vaccountnumber, vphone, estatus, sid) VALUES (?, ?, ?, ?, ?, ?)';
+            $insert_query = 'INSERT INTO '.$db.'.mst_customer (vcustomername, vtaxable, vaccountnumber, vphone, estatus, sid, note) VALUES (?, ?, ?, ?, ?, ?, ?)';
             
-            $return = DB::statement($insert_query, array($phone, 'Yes', $new_ac_number, $phone, 'Active', $input['sid']));
+            $return = DB::statement($insert_query, array($phone, 'Yes', $new_ac_number, $phone, 'Active', $input['sid'], 'Inserted By API'));
+            
+            
+            
+            //====================== Send SMS ============================
+            
+            // get the parameters needed
+            $message = "Test Message\nThank you for registering with us.\nYour account no. is ".$new_ac_number."\nAlberta Team.";
+            $message = urlencode($message);
+            
+            $api_key = "6u69665t3171ar1eqlberiv452ozenafh";
+            $sender_id = "SEDEMO";
+            
+            $to = $input['mobile_no'];
+            
+		    $params = "web/send/?apikey=$api_key&sender=$sender_id&to=$to&message=$message";
+		    
+		    $api_url = 'http://instantalerts.co/api/';
+		    
+		    $eurl = $api_url.$params;	
+		    
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_POST, 0);
+            curl_setopt($ch, CURLOPT_URL, $eurl);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $output = curl_exec($ch);
+            curl_close($ch);
+		//$output = file_get_contents($eurl);
+            // return $output;	
+            
+            
+            
+            
             
             return response()->json(['message' => 'Thank you for registering.', 'status' => 'ok'], 200);
             

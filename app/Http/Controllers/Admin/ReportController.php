@@ -18,6 +18,8 @@ use Auth;
 use Response;
 use pos2020\Store;
 use pos2020\MST_STORE;
+use Config;
+
 
 
 class ReportController extends Controller
@@ -128,7 +130,7 @@ class ReportController extends Controller
         $itemPrice = new Item;
         return $itemPrice->GetItemPrice();
     }
-    public function getSalesByDays(){
+    public function getSalesByDays(){ 
         $last7daysSales = new TRN_SALES; 
         $dates[] = Request::get('fdate') != '' ? Request::get('fdate'):date('Y-m-1');
         $dates[] = Request::get('tdate') != '' ? Request::get('tdate'):date('Y-m-t');
@@ -145,15 +147,22 @@ class ReportController extends Controller
     }
     public function getCategoryByAmount(){
         $topCategory = new TRN_SALES;
+        
+        \Session::put('selected_store_id', Request::get('sid'));
+        
         $dates[] = Request::get('fdate') != '' ? Request::get('fdate'):date('Y-m-1');
         $dates[] = Request::get('tdate') != '' ? Request::get('tdate'):date('Y-m-t');
         $charts['data'] = $topCategory->getTopCategoryByDate($dates);
+        // dd($charts);
         return response()->json($charts);
     }
     public function getTopSaleItemByDate(){
         $topItem = new TRN_SALES;
+        
+        \Session::put('selected_store_id', Request::get('sid'));        
         $dates[] = Request::get('fdate') != '' ? Request::get('fdate'):date('Y-m-1');
         $dates[] = Request::get('tdate') != '' ? Request::get('tdate'):date('Y-m-t');
+        
         $charts['data'] = $topItem->getTopSaleItemByDate($dates);
         return response()->json($charts);
     }
@@ -184,6 +193,7 @@ class ReportController extends Controller
         $dates[] = Request::get('tdate') != '' ? Request::get('tdate'):date('Y-m-t');
         $sid = Request::get('sid') != '' ? Request::get('sid') : null;
         $charts = $summary->getSummaryDetail($dates,$sid);
+        //dd($charts);
         return $charts;
     }
     public function getReports(){
@@ -271,6 +281,8 @@ class ReportController extends Controller
     public function getCustomerByHours(){
         $last24hourCustomer = new TRN_SALES;
         $date = Request::get('date') != '' ? Request::get('date'):null;
+        \Session::put('selected_store_id', Request::get('sid'));
+
         $charts['data'] = $last24hourCustomer->getCustomerByHours($date);
         return response()->json($charts);
     }
@@ -387,6 +399,7 @@ class ReportController extends Controller
             return response()->json(['error'=>'SID is  missing'],401);
         }
     }
+    
     public function getLast20Transaction(Request $request){
         $last20Transaction =  new TRN_SALES ;
         $sid = Request::get('sid',null);
@@ -394,6 +407,24 @@ class ReportController extends Controller
         if(!is_null($sid)){
             $data = $last20Transaction->getLast20Transaction($sid);
             return $data->toArray();
+
+        } else {
+            return response()->json(['error'=>'SID is  missing'],401);
+        }
+    }
+    
+    // ====================== ON MANISH'S REQUEST: WITHOUT TOKEN ================================
+    public function notoken_getLast20Transaction(Request $request){
+        
+        $sid = Request::get('sid',null);
+
+        if(!is_null($sid)){
+            
+            $select_statement = "SELECT * FROM u".$sid.".trn_sales WHERE vtrntype='Transaction' AND sid=".$sid." ORDER BY dtrandate LIMIT 0, 20";
+            
+            $data = DB::connection('mysql')->select($select_statement);
+            
+            return (array)$data;
 
         } else {
             return response()->json(['error'=>'SID is  missing'],401);
@@ -466,4 +497,93 @@ class ReportController extends Controller
             return response()->json(['error'=>'Invalid argument supplied...Please Enter SID '],401);
         }
     }
+    public function getTransactionDetail_new(Request $request){
+        //print_r("test");die;
+        $transactionDetail = new trnSalesDetail;
+        $salestender = new trnSalesTender;
+        $sales = new TRN_SALES;
+
+         $sid = Request::get('sid',null);
+        $salesId = Request::get('salesId',null);
+        
+        $sales_return = [];
+        
+        $return = $transactionDetail->getTransactionDetailreturnvalue_new($sid,$salesId);
+        
+        $sales_return['NoReturnitems'] = 'Number_Returnitems';
+        
+        $sales_return['NoReturnitems_Amount'] = $return[0]->NoReturnitems;
+        
+        $sales_return['subTotal'] = 'SubTotal';
+        
+        $sales_return['subTotal_amount'] = abs($return[0]->subTotal);
+        
+        $sales_return['tax'] = 'Tax';
+        
+        $sales_return['tax_amount'] = abs($return[0]->tax);
+        
+        $sales_return['total'] = 'Total';
+        
+        $sales_return['r_total'] = abs($return[0]->subTotal - $return[0]->tax);
+        
+        // var_dump($sid); die;
+        
+        if(!is_null($salesId) && !is_null($sid)){
+                $data['Sales'] = TRN_SALES::apiGetTransactionSales_new($sid,$salesId);
+                
+                $data['SalesDetail'] = $transactionDetail->getTransactionDetail_new($sid,$salesId);
+                $data['Title']="Return";
+                $data['SalesReturnDetail'] = $transactionDetail->getTransactionDetailreturn_new($sid,$salesId);
+                if(count($data['SalesReturnDetail']) > 0){
+                $data['SalesReturnDetailValue'][] = $sales_return;
+                }else{
+                $data['SalesReturnDetailValue'] = [];    
+                }
+                
+                //Disabled because SQLSTATE[HY000] [2002] No such file or directory
+                // $data['SalesTenderDetail'] = $salestender->getTransactionSalesTenderDetail_new($sid,$salesId);
+                
+                $query = "select * from u{$sid}.`trn_salestender` where `SID` = '{$sid}' and `isalesid` = '{$salesId}' 
+                order by `itenerid` asc limit 10";
+                $run_query = \DB::connection('mysql')->select($query);
+                
+                $return=$transactionDetail->getTransactionSalesGrandDetail_new($sid,$salesId);
+                
+                $total = 0;
+                foreach($return as $v){
+                    $total += $v->namount;
+                }
+                
+                $data['SalesGranTotal'] = $transactionDetail->getTransactionSalesGrandDetail_new($sid,$salesId);
+                $data['total']=number_format($total, 2, '.', '');  
+                $returndata= $transactionDetail->getTransactionSalesGrandDetailDiscount_new($sid,$salesId);
+                
+                $discount= (isset($returndata[0]->discount)) ? $returndata[0]->discount : '';
+                
+                $NCHANGE= (isset($returndata[0]->NCHANGE)) ? $returndata[0]->NCHANGE : '';
+                $Tender= (isset($returndata[0]->Tender)) ? $returndata[0]->Tender : '';
+                $tenders = [];
+                if($discount!=0){
+                  $tenders[] = ['type' => 'discount','value'=>$discount];
+                 }
+                 if($NCHANGE!=0)
+                 {
+                    $tenders[] = ['type' => 'Change', 'value' => $NCHANGE];
+                    
+                 }
+                 if($Tender!=0)
+                 {
+                     $data['Tender_Total']=$Tender;
+                 }
+                 $data['tender_detail'] = $tenders;
+                
+                // return $transactionDetail->getTransactionDetailreturnvalue($sid,$salesId);
+                return $data;
+        }else
+        {
+            return response()->json(['error'=>'Invalid argument supplied...Please Enter SID and salesId'],401);
+
+        }
+    }
+    
 }

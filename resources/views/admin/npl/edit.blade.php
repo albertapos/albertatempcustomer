@@ -103,7 +103,7 @@
 
         <div class="tab-content responsive">
           <div class="tab-pane active" id="item_tab">
-          <form action="{{url('/admin/npl-list-update/{$nplitems->barcode}')}}" method="post" enctype="multipart/form-data" id="form-item" class="form-horizontal">
+          <form action='/admin/npl-list-update/<?php echo $nplitems->barcode; ?>' method="post" id="form-item" class="form-horizontal">
 
           <div class="panel panel-default" style="border-top:none;margin-bottom:0px;">
             <div class="panel-body" style="padding: 10px 10px 0px 10px;"><h4><b>Product</b></h4></div>
@@ -112,10 +112,16 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
-                  <label class="col-sm-4 control-label" for="input-customer"> Item Type</label>
+                  <label class="col-sm-4 control-label" for="input-customer">Item Type</label>
                   <div class="col-sm-8">
                      
-                     <input type="text" name="itemtype" maxlength="50" value="{{$nplitems->item_type}}" placeholder="Item Type" id="" class="form-control" >
+<!--                     <input type="text" name="itemtype" maxlength="50" value="{{$nplitems->item_type}}" placeholder="Item Type" id="" class="form-control" >-->                    <?php $array_itemtype = ['Standard', 'Kiosk', 'Lot Matrix', 'Lottery']; ?>
+                    <select name="itemtype" class="form-control form-field" required>
+                        @foreach($array_itemtype as $value)
+                            <option value="{{$value}}">{{$value}}</option>
+                        @endforeach
+                    </select>
+                
                 
                   </div>
                 </div>
@@ -147,11 +153,12 @@
             </div>
             
             <div class="row">
+                
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="col-sm-4 control-label" for="input-account-number">Barcode</label>
                   <div class="col-sm-8">
-                    <input type="text" name="barcode" maxlength="50" value="{{$nplitems->barcode}}" placeholder="Barcode" id="" class="form-control" >
+                    <input type="text" name="barcode" maxlength="12" value="{{$nplitems->barcode}}" placeholder="Barcode" id="" class="form-control" >
                   
                     <div class="text-danger"></div>
               
@@ -162,42 +169,148 @@
                 <div class="form-group ">
                   <label class="col-sm-4 control-label" for="input-zip">Unit</label>
                   <div class="col-sm-8">
-                       <input type="text" name="unit" maxlength="50" value="{{$nplitems->unit}}" placeholder="Unit" id="" class="form-control" onkeypress="return isNumberKey(event)" >
-                  
+                       <!-- <input type="text" name="unit" maxlength="50" value="{{$nplitems->unit}}" placeholder="Unit" id="" class="form-control" onkeypress="return isNumberKey(event)" > -->
+                        
+                        <select name="unit" id="" class="form-control form-field" required >
+                        
+                            @foreach($units as $u)
+                            
+                                <option value='{{$u->vunitcode}}' 
+                                
+                                    <?php 
+                                        
+                                        if($u->vunitcode == $nplitems->unit){ echo ' selected="selected"';}
+                                    
+                                    ?>
+                                
+                                >{{$u->vunitname}}</option>
+                            
+                            @endforeach
+                        
+                        </select>
                  
                       <div class="text-danger"></div>
                   
                   </div>
                 </div>
               </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="col-sm-4 control-label" for="input-address">Age Verification</label>
+                  <div class="col-sm-8">
+                    
+                    <input type="text" name="ageverification" maxlength="50" value="{{$nplitems->age_verification}}" placeholder="Age Verification" id="" class="form-control" >
+                    <div class="text-danger"></div>
+           
+                  </div>
+                </div>
+              </div>
 
+            </div>
+
+            <div class="row">
+                
+            
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="col-sm-4 control-label" for="input-account-number">Department</label>
                   <div class="col-sm-8">
-                    <input type="text" name="dept" maxlength="50" value="{{$nplitems->department}}" placeholder="Department" id="" class="form-control" >
+                    <!--<input type="text" name="dept" maxlength="50" value="{{$nplitems->department}}" placeholder="Department" id="" class="form-control" >-->
+                    
+                    <select name="dept" placeholder="Department" id="" class="form-control form-field" required >
+                        
+                        @foreach($departments as $d)
+                        
+                            <option value='{{$d->vdepartmentname}}'
+                            
+                            <?php 
+                                        
+                                if($d->vdepartmentname == $nplitems->department){ echo ' selected="selected"';}
+                            
+                            ?>
+                            
+                            
+                            >{{$d->vdepartmentname}}</option>
+                        
+                        @endforeach
+                    
+                    </select>
+                    
                   
                     <div class="text-danger"></div>
               
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="row">
+                
+                
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="col-sm-4 control-label" for="input-account-number">Category</label>
                   <div class="col-sm-8">
-                    <input type="text" name="category" maxlength="50" value="{{$nplitems->category}}" placeholder="Category" id="" class="form-control" >
+                    <!--<input type="text" name="category" maxlength="50" value="{{$nplitems->category}}" placeholder="Category" id="" class="form-control" >-->
+                    
+                    
+                    <select name="category" placeholder="Category" id="" class="form-control form-field" required >
+                        
+                            @foreach($categories as $d)
+                            
+                                <option value='{{$d->vcategoryname}}'
+                                
+                                <?php 
+                                        
+                                    if($d->vcategoryname == $nplitems->category){ echo ' selected="selected"';}
+                                
+                                ?>
+                                
+                                >{{$d->vcategoryname}}</option>
+                            
+                            @endforeach
+                        
+                    </select>
+                    
                   
                     <div class="text-danger"></div>
               
                   </div>
                 </div>
               </div>
-            
+              
+              
               <div class="col-md-4 ">
+                <div class="form-group">
+                  <label class="col-sm-4 control-label" for="input-account-number">Sub Category</label>
+                  <div class="col-sm-8">
+                    <!--<input type="text" name="subcategory" maxlength="50" value="" placeholder="Sub Category" id="" class="form-control form-field" required >-->
+                    
+                    <select name="subcategory" id="" class="form-control form-field" required >
+                        
+                            @foreach($subcategories as $d)
+                            
+                                <option value='{{$d->subcat_name}}'
+                                
+                                    <?php 
+                                            
+                                        if($d->subcat_name == $nplitems->subcategory){ echo ' selected="selected"';}
+                                    
+                                    ?>
+                                
+                                
+                                
+                                >{{$d->subcat_name}}</option>
+                            
+                            @endforeach
+                        
+                    </select>
+                    
+                    <div class="text-danger"></div>
+              
+                  </div>
+                </div>
+              </div>              
+            
+              <!-- <div class="col-md-4 ">
                 <div class="form-group">
                   <label class="col-sm-4 control-label" for="input-account-number">Supplier</label>
                   <div class="col-sm-8">
@@ -208,6 +321,8 @@
                   </div>
                 </div>
               </div>
+              
+              
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="col-sm-4 control-label" for="input-phone">Group</label>
@@ -216,7 +331,7 @@
                     <input type="text" name="group" maxlength="50" value="{{$nplitems->group}}{{$nplitems->size}}" placeholder="Group" id="" class="form-control" >
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
 
             <div class="row">
@@ -225,7 +340,28 @@
                   <label class="col-sm-4 control-label" for="input-last-name">Size</label>
                   <div class="col-sm-8">
        
-                    <input type="text" name="size" maxlength="50" value="{{$nplitems->size}}" placeholder="Size" id="" class="form-control" >
+                    <!--<input type="text" name="size" maxlength="50" value="{{$nplitems->size}}" placeholder="Size" id="" class="form-control" >-->
+                    
+                    <select name="size" id="" class="form-control form-field" required >
+                        
+                            @foreach($sizes as $d)
+                            
+                                <option value='{{$d->vsize}}'
+                                
+                                    <?php 
+                                            
+                                        if($d->vsize == $nplitems->size){ echo ' selected="selected"';}
+                                    
+                                    ?>
+                                
+                                
+                                >{{$d->vsize}}</option>
+                            
+                            @endforeach
+                        
+                    </select>
+                    
+                    
                   
                       <div class="text-danger"></div>
            
@@ -254,6 +390,7 @@
             </div>
 
             <div class="row">
+              
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="col-sm-4 control-label" for="input-address">Qty On Hand</label>
@@ -265,6 +402,7 @@
                   </div>
                 </div>
               </div>
+              
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="col-sm-4 control-label" for="input-country">Selling Unit</label>
@@ -275,33 +413,72 @@
                   </div>
                 </div>
               </div>
+              
               <div class="col-md-4">
                 <div class="form-group">
-                  <label class="col-sm-4 control-label" for="input-country">Food Stamp</label>
-                  <div class="col-sm-8" style="margin-top:7px;">
-              
-                    @if($nplitems->food_stamp == 'Y')
-                        <input type="radio" name="foodstamp"  id="" class="form-control" value="Y" checked>
-                        <label>Yes</label>
-                        <input type="radio" name="foodstamp"  id="" class="form-control" value="N">
-                        <label>No</label>
-                    @elseif($nplitems->food_stamp == 'N')
-                        <input type="radio" name="foodstamp"  id="" class="form-control" value="Y" >
-                        <label>Yes</label>
-                        <input type="radio" name="foodstamp"  id="" class="form-control" value="N" checked>
-                        <label>No</label>
-                    @else
-                        <input type="radio" name="foodstamp"  id="" class="form-control" value="Y">
-                        <label>Yes</label>
-                        <input type="radio" name="foodstamp"  id="" class="form-control" value="N">
-                        <label>No</label>
-                    @endif
-                   
+                  <label class="col-sm-4 control-label" for="input-last-name">Manufacturer</label>
+                  <div class="col-sm-8">
+       
+                    <!--<input type="text" name="size" maxlength="50" value="" placeholder="Size" id="" class="form-control form-field" required >-->
+                  
+                    <select name="manufacturer" id="" class="form-control form-field" required >
+                        
+                            @foreach($manufacturers as $d)
+                            
+                                <option value='{{$d->mfr_name}}'
+                                
+                                    <?php 
+                                        
+                                        if($d->mfr_name == $nplitems->manufacturer){ echo ' selected="selected"';}
+                                    
+                                    ?>
+                                
+                                >{{$d->mfr_name}}</option>
+                            
+                            @endforeach
+                        
+                    </select>
+                    
+                    
+                    <div class="text-danger"></div>
+           
                   </div>
                 </div>
               </div>
+              
+              
+              
              </div>
               <div class="row">
+                  
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label" for="input-country">Food Stamp</label>
+                      <div class="col-sm-8" style="margin-top:7px;">
+                  
+                        @if($nplitems->food_stamp == 'Y')
+                            <input type="radio" name="foodstamp"  id="" class="form-control" value="Y" checked>
+                            <label>Yes</label>
+                            <input type="radio" name="foodstamp"  id="" class="form-control" value="N">
+                            <label>No</label>
+                        @elseif($nplitems->food_stamp == 'N')
+                            <input type="radio" name="foodstamp"  id="" class="form-control" value="Y" >
+                            <label>Yes</label>
+                            <input type="radio" name="foodstamp"  id="" class="form-control" value="N" checked>
+                            <label>No</label>
+                        @else
+                            <input type="radio" name="foodstamp"  id="" class="form-control" value="Y">
+                            <label>Yes</label>
+                            <input type="radio" name="foodstamp"  id="" class="form-control" value="N">
+                            <label>No</label>
+                        @endif
+                       
+                      </div>
+                    </div>
+                  </div>
+                  
+
+                  
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="col-sm-4 control-label" for="input-address">WIC Item</label>
@@ -331,17 +508,6 @@
                 </div>
               </div>
          
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label class="col-sm-4 control-label" for="input-address">Age Verification</label>
-                  <div class="col-sm-8">
-                    
-                    <input type="text" name="ageverification" maxlength="50" value="{{$nplitems->age_verification}}" placeholder="Age Verification" id="" class="form-control" >
-                    <div class="text-danger"></div>
-           
-                  </div>
-                </div>
-              </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="col-sm-4 control-label" for="input-phone">Taxable
@@ -378,19 +544,22 @@
           </div>
 
 
-         
-          
-          </form>
           <br>
           <div class="row" style="padding-bottom:10px;">
             <div class="col-md-12 text-center">
               <input type="submit" form="form-item" title="" class="btn btn-primary save_btn_rotate" value="Save">
               <a id="cancel_button" href="{{ url('/admin/npl-list') }}" data-toggle="tooltip" title="" class="btn btn-default cancel_btn_rotate"><i class="fa fa-reply"></i>&nbsp;&nbsp;Cancel</a>
          
-                <button type="button" class="btn btn-danger" id="delete_btn" style="border-radius: 0px;float: right;" name="deleteItems"><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;Delete Item</button>
-             
+<!--                <button type="button" class="btn btn-danger" id="delete_btn" style="border-radius: 0px;float: right;" name="deleteItems"><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;Delete Item</button>-->             
+              <input type='submit' class='btn btn-danger pull-right' name='Save' value='Finish'>
+            
+            
             </div>
           </div>
+
+         
+          
+          </form>
           </div>
       
         </div>
@@ -2354,7 +2523,38 @@ $(document).ready(function(){
   });
 </script>
 
-
+<script>
+    $(function() {
+        
+     
+        
+        /*url = url.replace(/&amp;/g, '&');
+        
+        $( "#search_parent_sku" ).autocomplete({
+            minLength: 2,
+            source: function(req, add) {
+                $.getJSON(url, req, function(data) {
+                    var suggestions = [];
+                    $.each(data, function(i, val) {
+                    
+                      if(present_iitemid != val.iitemid){
+                        suggestions.push({
+                            label: val.vitemname,
+                            value: val.vitemname,
+                            id: val.iitemid
+                        });
+                      }
+                    });
+                    add(suggestions);
+                });
+            },
+            select: function(e, ui) {
+              $('form#form_add_parent_item select[name="parent_item_id"]').val(ui.item.id);
+              $('#form_add_parent_item').submit();
+            }
+        });*/
+    });
+</script>
 
 
 
@@ -2373,7 +2573,7 @@ $(document).ready(function(){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <input type="submit" class="btn btn-danger"  id="delte_item" name="deleteItems" value="Delete">
+        <input type="submit" class="btn btn-danger delete_item"  id="{{$nplitems->barcode}}" name="deleteItem" value="Delete">
       </div>
     </div>
 
@@ -2392,20 +2592,27 @@ $(document).ready(function(){
 </script>
 
 <script type="text/javascript">
-  $(document).on('click', 'input[name="deleteItems"]', function(event) {
+/*  $(document).on('click', 'input[name="deleteItems"]', function(event) {
     event.preventDefault();
     
     var data = {};
  
+    url = url.replace(/&amp;/g, '&');
 
  
-
+      bootbox.alert({ 
+        size: 'small',
+        title: "Attention", 
+        message: 'Something Went Wrong!', 
+        callback: function(){}
+      });
+      return false;
   
     
     $('#deleteItemModal').modal('hide');
     $("div#divLoading").addClass('show');
-    var id= $("input[name=barcode]").val();
-
+    var id= $("#item_tab").find("input[name=barcode"]).val();
+    
      var url = /npl-list-delete/ + id;
     $.ajax({
       url : url,
@@ -2415,23 +2622,56 @@ $(document).ready(function(){
       dataType: 'json',
       success: function(data) {
         
+        if(data.error){
+          bootbox.alert({ 
+            size: 'small',
+            title: "Attention", 
+            message: data.error, 
+            callback: function(){}
+          });
+
+          $("div#divLoading").removeClass('show');
+          return false;
+
+        }else{
+          $("div#divLoading").removeClass('show');
           $('#deleteItemSuccessModal').modal('show');
 
           setTimeout(function(){
            
-            url_redirect = "/admin/npl-list";
+            url_redirect = url_redirect.replace(/&amp;/g, '&');
             window.location.href = url_redirect;
            
           }, 3000);
+        }
         
       },
       error: function(xhr) { // if error occured
-        console.log(xhr.responseText);
+        var  response_error = $.parseJSON(xhr.responseText); //decode the response array
+        
+        var error_show = '';
+
+        if(response_error.error){
+          error_show = response_error.error;
+        }else if(response_error.validation_error){
+          error_show = response_error.validation_error[0];
+        }
+
+        bootbox.alert({ 
+          size: 'small',
+          title: "Attention", 
+          message: error_show, 
+          callback: function(){}
+        });
+
+        $("div#divLoading").removeClass('show');
+
+        return false;
       }
     });
 
 
-  });
+  });*/
 </script>
 
 <div class="modal fade" id="deleteItemSuccessModal" role="dialog" style="z-index: 9999;">
@@ -2548,7 +2788,53 @@ $(document).ready(function(){
 </script>
 
 <script type="text/javascript">
-  $(document).on('click', '#delete_item_vendor_btn', function(event) {
+  $(document).on('click', '.delete_item', function(event) {
+        $('#deleteItemModal').hide();
+        var id = $(this).attr('id');
+        var url = "/admin/npl-list-delete/"+id;
+        console.log(url);
+        $.ajax({
+            url : url,
+            type : 'POST',
+            success: function(data) {
+                console.log(data);
+                bootbox.alert({ 
+                    size: 'small',
+                    title: "Attention", 
+                    message: 'Item deleted successfully.', 
+                    callback: function(){
+                        window.location.replace("/admin/npl-list");
+                    }
+                });
+            },
+              error: function(xhr) { // if error occured
+                /*var  response_error = $.parseJSON(xhr.responseText); 
+                
+                var error_show = '';
+        
+                if(response_error.error){
+                  error_show = response_error.error;
+                }else if(response_error.validation_error){
+                  error_show = response_error.validation_error[0];
+                }
+        
+                bootbox.alert({ 
+                  size: 'small',
+                  title: "Attention", 
+                  message: error_show, 
+                  callback: function(){}
+                });
+        
+                $("div#divLoading").removeClass('show');
+        
+                return false;*/
+              }
+            });
+      
+  });
+
+
+/*  $(document).on('click', '#delete_item_vendor_btn', function(event) {
     event.preventDefault();
     var delete_vendor_code_url = '';
     delete_vendor_code_url = delete_vendor_code_url.replace(/&amp;/g, '&');
@@ -2571,40 +2857,8 @@ $(document).ready(function(){
     
     $("div#divLoading").addClass('show');
 
-    $.ajax({
-        url : delete_vendor_code_url,
-        data : JSON.stringify(data),
-        type : 'POST',
-        contentType: "application/json",
-        dataType: 'json',
-      success: function(data) {
-        
-        $('#success_alias').html('<strong>'+ data.success +'</strong>');
-        $("div#divLoading").removeClass('show');
-        $('#successAliasModal').modal('show');
 
-        setTimeout(function(){
-         $('#successAliasModal').modal('hide');
-         window.location.reload();
-        }, 3000);
-      },
-      error: function(xhr) { // if error occured
-        var  response_error = $.parseJSON(xhr.responseText); //decode the response array
-        
-        var error_show = '';
-
-        if(response_error.error){
-          error_show = response_error.error;
-        }else if(response_error.validation_error){
-          error_show = response_error.validation_error[0];
-        }
-
-        $('#error_alias').html('<strong>'+ error_show +'</strong>');
-        $('#errorAliasModal').modal('show');
-        return false;
-      }
-    });
-  });
+  });*/
 </script>
 
 <script type="text/javascript">

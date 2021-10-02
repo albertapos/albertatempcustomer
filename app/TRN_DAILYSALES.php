@@ -204,8 +204,12 @@ class TRN_DAILYSALES extends Model
         
         $store_id = $sid;
     
-    
-        $data = DB::connection('mysql2')->select("call rp_salessummarychart('".$dt."','".$store_id."')");
+        //$dt='06-03-2020';
+        $db = "u".$store_id;
+        
+        // $data = DB::connection('mysql')->select("call inslocdb.rp_salessummarychart('".$dt."','".$store_id."')");
+        
+        $data = DB::connection('mysql')->select("call ".$db.".rp_salessummarychart('".$dt."','".$store_id."')");
         $m = $data[0];
 
         $return_data = array();

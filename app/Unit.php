@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Unit extends Model
 {
-    protected $connection = 'mysql2';
+    protected $connection = 'mysql';
     protected $table = 'mst_unit';
+    protected $primaryKey = 'iunitid';
+    public $timestamps = false;
 }

@@ -28,6 +28,13 @@ class ModelKioskStores extends Model {
 
 		return $query->row;
 	}
+	
+	public function getStoresByUser($userId) {
+	    $sql = "SELECT id,name,db_name,db_username,db_password,db_hostname FROM stores WHERE id IN ( SELECT store_id FROM user_stores WHERE user_id ='".$userId."') AND kiosk = 'Y' GROUP BY id";
+		$query = $this->db->query($sql);
+
+		return $query->rows;
+	}
 
 	public function getStores($data = array()) {
 		//$sql = "SELECT * FROM stores";

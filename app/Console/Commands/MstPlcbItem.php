@@ -47,16 +47,38 @@ class MstPlcbItem extends Command
      */
     public function handle()
     {
+        // $bar = $this->output->createProgressBar(3);
+
+        \Log::info("Running mstPlcbItem");
         $this->mstPlcbItem();
+
+        
+        \Log::info("Running mstPlcbItemDetails");
         $this->mstPlcbItemDetails();
+        
+        \Log::info("Running mstPlcbItemDetails");
         $this->mstPlcbReportEmail();
+        
+        \Log::info("Done inserting data related to PLCB Reports.");
+
     }
 
     public function mstPlcbItem(){
+        
+        ini_set('memory_limit', '5G');
+        ini_set('max_execution_time', 0);
 
         $stores = Store::all();
+        
+        $bar = $this->output->createProgressBar(count($stores));
+
 
         foreach ($stores as $key => $store) {
+            
+            $bar->advance();
+
+            if($store->id == '100569'){continue;}
+            
             if($store->plcb_product == 'Y'){
                 $store->plcbsetdb($store);
 
@@ -74,13 +96,29 @@ class MstPlcbItem extends Command
                 }
             }
         }
+        
+        $bar->finish();
+
     }
 
     public function mstPlcbItemDetails(){
+        
+        ini_set('memory_limit', '5G');
+                ini_set('max_execution_time', 0);
 
         $stores = Store::all();
+        
+        $bar = $this->output->createProgressBar(count($stores));
+
 
         foreach ($stores as $key => $store) {
+            
+            $bar->advance();
+
+            
+            if($store->id == '100569'){continue;}
+
+            
             if($store->plcb_report == 'Y'){
                 $store->plcbsetdb($store);
 
@@ -135,18 +173,31 @@ class MstPlcbItem extends Command
                 }
             }
         }
+        
+        $bar->finish;
     }
 
     public function mstPlcbReportEmail(){
+        
+        ini_set('memory_limit', '5G');
+        ini_set('max_execution_time', 0);
 
         $stores = Store::all();
+        
+        $bar = $this->output->createProgressBar(count($stores));
+        
 
         foreach ($stores as $key => $store) {
+            
+            $bar->advance();
+            
+            if($store->id == '100569'){continue;}
+
+            
             if($store->plcb_report == 'Y'){
                 $store->plcbsetdb($store);
 
-                ini_set('memory_limit', '1G');
-                ini_set('max_execution_time', 300);
+                
 
                 $buckets = MST_PLCB_BUCKET_TAG::all();
 
@@ -352,8 +403,8 @@ class MstPlcbItem extends Command
                         $pdf = PDF::loadView('pdf',compact('main_bucket_arr','main_supplier_arr','store_name','buckets','schedule_a','main_bucket_arr_end','main_bucket_arr_malt'));
 
                         $message->subject('PLCB Report of '.$prev_month);
-                        $message->to($user_email);
-                        $message->cc('samaj.patel@gmail.com');
+                        // $message->to($user_email);
+                        $message->to('adarsh.s.chacko@gmail.com');
 
                         $message->from('pos2020order@gmail.com','POS2020');
 
@@ -362,5 +413,8 @@ class MstPlcbItem extends Command
                 }
             }
         }
+        
+        $bar->finish();
+        
     }
 }

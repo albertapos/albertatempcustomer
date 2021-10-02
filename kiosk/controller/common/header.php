@@ -3,6 +3,8 @@ class ControllerCommonHeader extends Controller {
 	
 	public function index() {
 		$data['title'] = $this->document->getTitle();
+		$data['stores'] = isset($this->session->data['user_stores']) ? $this->session->data['user_stores'] : array();
+		$data['SID'] = isset($this->session->data['SID']) ? $this->session->data['SID'] : '';
 
 		if ($this->request->server['HTTPS']) {
 			$data['base'] = HTTPS_SERVER;
@@ -43,7 +45,7 @@ class ControllerCommonHeader extends Controller {
 			
 			$data['token'] = $this->session->data['token'];
 			$this->load->model('kiosk/stores');
-			$data['stores'] = array();
+// 			$data['stores'] = array();
 			//$data['stores'] = $this->model_kiosk_stores->getStores();
 		}
 

@@ -5,21 +5,22 @@
     <div class="row">
       <div class="col-sm-offset-4 col-sm-4">
         <div class="panel panel-default">
-          <div class="panel-heading">
+          <!--<div class="panel-heading">
             <h1 class="panel-title"><i class="fa fa-lock"></i> Successfully logout.<?php //echo $text_login; ?></h1>
-          </div>
+          </div>-->
           <div class="panel-body">
             <?php if ($success) { ?>
             <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
               <button type="button" class="close" data-dismiss="alert">&times;</button>
             </div>
+            <div class="alert alert-success"><i class="fa fa-check-circle"></i> Successfully logout.</div>
             <?php } ?>
             <?php if ($error_warning) { ?>
             <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
               <button type="button" class="close" data-dismiss="alert">&times;</button>
             </div>
             <?php } ?>
-            <!--<div class="alert alert-success"><i class="fa fa-check-circle"></i> Successfully logout.</div>
+            
             <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
             <input type="hidden" name="SID" value="<?php echo $SID; ?>" />
               <div class="form-group">
@@ -43,7 +44,7 @@
               <?php if ($redirect) { ?>
               <input type="hidden" name="redirect" value="<?php echo $redirect; ?>" />
               <?php } ?>
-            </form>-->
+            </form>
           </div>
         </div>
       </div>

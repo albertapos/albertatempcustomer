@@ -41,4 +41,18 @@ class trnSalesTender extends Model
     public function scopeCurrentStore($query) {
         return  $query->where('trn_salestender.SID', SESSION::get('selected_store_id'));
     }
+     public function getTransactionSalesTenderDetail_new($sid,$salesId){
+       // $query = new trnSalesTender;
+        $objTransaction = trnSalesTender::take(10);
+
+        $getTransactionSalesTenderDetail = $objTransaction
+                            ->where('trn_salestender.SID',$sid)
+                            ->Where('trn_salestender.isalesid',$salesId)
+                            ->orderBy('itenerid')
+                            ->get();
+
+       
+         return $getTransactionSalesTenderDetail;
+     
+    }
 }

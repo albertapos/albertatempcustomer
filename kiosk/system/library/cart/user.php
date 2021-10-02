@@ -62,15 +62,25 @@ class User {
 
 	public function login($username, $password, $SID) {
 		
-		//$user_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "user WHERE username = '" . $this->db->escape($username) . "' AND (password = SHA1(CONCAT(salt, SHA1(CONCAT(salt, SHA1('" . $this->db->escape($password) . "'))))) OR password = '" . $this->db->escape(md5($password)) . "') AND status = '1'");
+// 		$user_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "user WHERE username = '" . $this->db->escape($username) . "' AND (password = SHA1(CONCAT(salt, SHA1(CONCAT(salt, SHA1('" . $this->db->escape($password) . "'))))) OR password = '" . $this->db->escape(md5($password)) . "') AND status = '1'");
 		
-		$user_query = $this->db->query("SELECT * FROM users WHERE email = '" . $this->db->escape($username) . "' AND password = '" . $this->db->escape($password) . "' ");
-		
-		//echo "<pre>";
-		//print_r($user_query->num_rows);
-		//exit;
-
-		if ($user_query->num_rows) {
+		$user_query_hash = $this->db->query("SELECT * FROM users WHERE email = '" . $this->db->escape($username) . "' AND password = '" . $this->db->escape($password) . "' ");
+		$verify_password;
+		if(!$user_query_hash->num_rows)
+		{
+		    $user_query = $this->db->query("SELECT * FROM users WHERE email = '" . $this->db->escape($username).  "' ");
+		    $hash = $user_query->row['password'];
+		    $verify_password = password_verify($this->db->escape($password), $hash);
+		    
+		  //  $SID = 1097;
+		}
+		else
+		{
+		    $verify_password = 1;
+		    $user_query=$user_query_hash;
+		}
+		if ($user_query->num_rows && $verify_password) {
+		  
 			$this->session->data['user_id'] = $user_query->row['id'];
 			$this->session->data['SID'] = $SID;
 			//$this->session->data['SID'] = 1000;
@@ -167,6 +177,29 @@ class User {
 		} else {
 			return false;
 		}
+	}
+	
+	public function change_store($SID)
+	{
+	        
+		$this->session->data['SID'] = $SID;
+
+		$store = $this->db->query("SELECT id,name,db_name,db_username,db_password,db_hostname FROM stores WHERE id='".$SID."'");
+		
+			if(isset($store))
+			{	
+				unset($this->session->data['db2']);
+				unset($this->session->data['db_hostname2']);
+				unset($this->session->data['db_username2']);
+				unset($this->session->data['db_password2']);
+				unset($this->session->data['db_database2']);
+
+				$this->session->data['db_hostname2'] = $store->row['db_hostname'];
+				$this->session->data['db_username2'] = $store->row['db_username'];
+				$this->session->data['db_password2'] = $store->row['db_password'];
+				$this->session->data['db_database2'] = $store->row['db_name'];
+				$this->session->data['storename'] = $store->row['name'];
+			}
 	}
 
 	public function logout() {

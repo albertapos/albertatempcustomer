@@ -70,7 +70,7 @@ class LoginController extends Controller
                 }
                  foreach ($user->roles()->get() as $role)
                 {
-                    if ($role->name == 'Admin')
+                    if ($role->name == 'Admin' || $role->name == 'StoreAdmin' || $role->name == 'SuperAdmin')
                     {
                         User::changeStore(); 
                         return redirect('/admin');

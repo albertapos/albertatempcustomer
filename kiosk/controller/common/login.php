@@ -4,13 +4,12 @@ class ControllerCommonLogin extends Controller {
 
 	public function index() {
 		$this->load->language('common/login');
-
+        $this->load->model('kiosk/stores');
 		$this->document->setTitle($this->language->get('heading_title'));
-
 		if ($this->user->isLogged() && isset($this->request->get['token']) && ($this->request->get['token'] == $this->session->data['token'])) {
 			$this->response->redirect($this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true));
 		}
-//echo $this->request->get['sid'];
+		
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->session->data['token'] = token(32);
 			

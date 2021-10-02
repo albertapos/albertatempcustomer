@@ -21,12 +21,21 @@ class authJWT
      */
     public function handle($request, Closure $next)
     {
+        // Config::set('auth.providers.users.model', OtherUser::class);
+        // Config::set('auth.providers.users.table', 'other_users');
+        
+        \Config::set('jwt.user', "pos2020\StoreMwUsers");
+        \Config::set('auth.providers.users.model', \pos2020\StoreMwUsers::class);
+        \Config::set('auth.providers.users.table', 'store_mw_users');
         try {
             if (! $user = JWTAuth::parseToken()->authenticate()) {
                 return response()->json(['user_not_found'], 404);
             }
 
         } catch (Exception $e) {
+            
+            // echo "<pre>"; print_r($e->getMessage()); echo "</pre>"; die;
+            
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
 
                 return response()->json(['error'=>'Token is Invalid'],401);
@@ -37,22 +46,54 @@ class authJWT
 
             }else{
 
-                return response()->json(['error'=>'Something is wrong'],401);
+                return response()->json(['error'=>$e->getMessage()],401);
             }
         }
+        // dd($user);
+        
 
-        if($user->roles()->first()->name != 'Admin' && $user->is_mobile_user == 'False'){
+        $url = $request->url();
+
+        if (strpos($url, '7daysSales') !== false) {
+            return $next($request);
+        }
+        
+        if (strpos($url, '7daysCustomer') !== false) {
+            return $next($request);
+        }
+
+        if (strpos($url, 'topCategory') !== false) {
+            return $next($request);
+        }
+
+        if (strpos($url, 'topItem') !== false) {
+            return $next($request);
+        }
+        
+        if (strpos($url, 'dailySummary') !== false) {
+            return $next($request);
+        }
+        
+        if (strpos($url, 'api/admin/customer') !== false) {
+            return $next($request);
+        }
+
+
+        if($user->mob_user != 'Y'){
             return response()->json(['error'=>'No more mobile user'],401);
         }
+        
+        // print_r($request);die;
      
         //Request::header('Content-Type','application/json');
 
-        $sid = null;
-        if($request->sid && $request->sid > 0 )
-        {
-            $sid = $request->sid;
-        }
-        User::changeStore($sid);
+        // $sid = null;
+        // if($request->sid && $request->sid > 0 )
+        // {
+        //     $sid = $request->sid;
+        // }
+        // User::changeStore($sid);
+        // dd($next);
         return $next($request);
 
     }

@@ -10,24 +10,32 @@ class ModelKioskMenus extends Model {
 		}else{
 			$image = base64_decode($data['image']);
 		}*/
+		
+		
+// 		print_r($files); die;
 		if(isset($files['image']['tmp_name']))
 		{
 			if(is_file($files['image']['tmp_name']) && $files['image']['tmp_name']!='')
 			{
 				$fp = fopen($files['image']['tmp_name'], 'rb');
 				$image = file_get_contents($files['image']['tmp_name']);
+				$image_query = ", `ImageLoc` = '" . $this->db->escape($image)."'";
 			}else{
-				$image = base64_decode($files['image']['tmp_name']);
+				// $image = base64_decode($files['image']['tmp_name']);
+			    $image_query = "";
 			}
 		}
 		else
 		{
-			$image ='NULL';			
+// 			$image ='NULL';
+			$image_query = "";
 		}
 		
 		$query=$this->db2->query("SELECT (max(Sequence)+1) as Sequence FROM kiosk_menu_header");
 		
-		$this->db2->query("INSERT INTO kiosk_menu_header SET `Title` = '" . $this->db->escape($data['Title']) . "', StartTime = '" . (int)$data['StartTime'] . "',ImageLoc = '" . $this->db->escape($image) . "',Status = '" . $this->db->escape($data['status']) . "',`EndTime` = '" . $this->db->escape($data['EndTime']) . "',`RowSize` = '" . $this->db->escape($data['RowSize']) . "',`ColumnSize` = '" . $this->db->escape($data['ColumnSize']) . "',SID = '" . (int)($this->session->data['SID'])."',`Sequence` ='".$query->row['Sequence']."'");
+        $insert_query = "INSERT INTO kiosk_menu_header SET `Title` = '" . $this->db->escape($data['Title']) . "', `StartTime` = '" . (int)$data['StartTime'] . "'" . $image_query . ", `Status` = '" . $this->db->escape($data['status']) . "',`EndTime` = '" . $this->db->escape($data['EndTime']) . "',`RowSize` = '" . $this->db->escape($data['RowSize']) . "',`ColumnSize` = '" . $this->db->escape($data['ColumnSize']) . "', `SID` = '" . (int)($this->session->data['SID'])."',`Sequence` ='".$query->row['Sequence']."'";
+        
+		$this->db2->query($insert_query);
 
 		$MenuId = $this->db2->getLastId();
 
@@ -52,16 +60,25 @@ class ModelKioskMenus extends Model {
 			{
 				$fp = fopen($files['image']['tmp_name'], 'rb');
 				$image = file_get_contents($files['image']['tmp_name']);
+				
+				$image_query = ", `ImageLoc` = '" . $this->db->escape($image)."'";
 			}else{
-				$image = base64_decode($files['image']['tmp_name']);
+				// $image = base64_decode($files['image']['tmp_name']);
+				$image_query = "";
 			}
 		}
 		else
 		{
-			$image ='NULL';			
+// 			$image ='NULL';	
+			$image_query = "";
+
 		}
 		
-		$this->db2->query("UPDATE kiosk_menu_header SET `Title` = '" . $this->db->escape($data['Title']) . "', StartTime = '" . (int)$data['StartTime'] . "',ImageLoc = '" . $this->db->escape($image) . "', Status = '" . $this->db->escape($data['status']) . "',`EndTime` = '" . $this->db->escape($data['EndTime']) . "',`RowSize` = '" . $this->db->escape($data['RowSize']) . "',`ColumnSize` = '" . $this->db->escape($data['ColumnSize']) . "',SID = '" . (int)($this->session->data['SID'])."' WHERE MenuId = '" . (int)$MenuId . "'");
+// 		echo $update_query; die;
+
+        $update_query = "UPDATE kiosk_menu_header SET `Title` = '" . $this->db->escape($data['Title']) . "', StartTime = '" . (int)$data['StartTime'] . "'". $image_query . ", `Status` = '" . $this->db->escape($data['status']) . "',`EndTime` = '" . $this->db->escape($data['EndTime']) . "',`RowSize` = '" . $this->db->escape($data['RowSize']) . "',`ColumnSize` = '" . $this->db->escape($data['ColumnSize']) . "',SID = '" . (int)($this->session->data['SID'])."' WHERE MenuId = '" . (int)$MenuId . "'";
+		
+		$this->db2->query($update_query);
 
 		$this->cache->delete('menu');
 	}	
@@ -92,24 +109,33 @@ class ModelKioskMenus extends Model {
 				if(isset($file) && $file!='')
 				{
 					if(is_file($file) && $file!='')
-					{
+					{echo 112;
 						$fp = fopen($file, 'rb');
 						$image = file_get_contents($file);
-					}else{
-						$image = base64_decode($file);
+				        $image_query = ", `ImageLoc` = '" . $this->db->escape($image)."'";
+					}else{echo 116;
+				// 		$image = base64_decode($file);
+				        $image_query = "";
 					}
 					//echo 'new';
 				}
 				else
-				{
+				{//echo 123;
 					//echo 'old';
-					$image = base64_decode($data['imagehidden']);			
+				// 	$image = base64_decode($data['imagehidden']);	
+				        $image_query = "";
+				
 				}
 				
 				//print_r($image);
-				$this->db2->query("UPDATE kiosk_menu_header SET `Title` = '" . $this->db->escape($data['Title']) . "', StartTime = '" . (int)$data['StartTime'] . "',ImageLoc = '" . $this->db->escape($image) . "', Status = '" . $this->db->escape($data['Status']) . "',`EndTime` = '" . $this->db->escape($data['EndTime']) . "',`RowSize` = '" . $this->db->escape($data['RowSize']) . "',`ColumnSize` = '" . $this->db->escape($data['ColumnSize']) . "',SID = '" . (int)($this->session->data['SID'])."',`Sequence`='".$i."' WHERE MenuId = '" . (int)$data['MenuId'] . "'");
 				
-			$i++;}
+				$update_query = "UPDATE kiosk_menu_header SET `Title` = '" . $this->db->escape($data['Title']) . "', StartTime = '" . (int)$data['StartTime'] . "'".$image_query.", Status = '" . $this->db->escape($data['Status']) . "',`EndTime` = '" . $this->db->escape($data['EndTime']) . "',`RowSize` = '" . $this->db->escape($data['RowSize']) . "',`ColumnSize` = '" . $this->db->escape($data['ColumnSize']) . "',SID = '" . (int)($this->session->data['SID'])."',`Sequence`='".$i."' WHERE MenuId = '" . (int)$data['MenuId'] . "'";
+
+				$this->db2->query($update_query);
+				
+			    $i++;
+			    
+			}
 		}
 		//exit;
 		$this->cache->delete('menu');

@@ -15,6 +15,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         // Commands\Inspire::class,
         \pos2020\Console\Commands\MstPlcbItem::class,
+        \pos2020\Console\Commands\TransferNewSkusToNpl::class,
+        \pos2020\Console\Commands\TrackNewSkus::class,
     ];
 
     /**
@@ -27,6 +29,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        // $schedule->command('mstplcbitem:mstplcbitem_update')->dailyAt('23:08');
+        
+        $schedule->command('track:newskus')->dailyAt('04:00');
+        $schedule->command('transfernewskus:npl')->dailyAt('05:00');
     }
 
     /**
